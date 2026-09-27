@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7a3e1d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lágrima">
+<title>Lágrima · Guitar Coach</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">𝄞</span><div><h1>Lágrima</h1><p>Tárrega · Preludio</p></div></div>
+  <div class="where" id="whereLabel">Bar 1</div>
+</header>
+
+<main id="views">
+  <!-- HOME / PRACTICE PLAN -->
+  <section class="view active" id="view-home" data-view="home">
+    <div class="card hero">
+      <div class="ring" id="progressRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" id="ringFg"/></svg><span id="ringText">0%</span></div>
+      <div><h2>Hi Jeremy 👋</h2><p class="muted" id="streakText">Let’s learn Lágrima, one small section at a time.</p></div>
+    </div>
+    <div class="card today">
+      <h3>Today’s practice <small id="todayDate"></small></h3>
+      <ol id="todayPlan"></ol>
+      <div class="row gap"><button class="btn primary" id="todayStart">▶ Start focus section</button><button class="btn" id="todayDone">✓ I practised today</button></div>
+    </div>
+    <div class="card">
+      <h3>Sections</h3>
+      <p class="muted small">Tap <b>Practise</b> to open the section with looping. Tick <b>Learned</b> when you can play it at ~70% speed without stopping.</p>
+      <ul class="sections" id="sectionList"></ul>
+    </div>
+    <div class="card">
+      <h3>About the piece</h3>
+      <p><b>Lágrima</b> (“teardrop”) is a short Romantic prelude in 3/4. <b>Form:</b> A (bars 1–8, E major) ×2 → B (bars 9–16, E minor) ×2 → back to the start (<i>D.C. al Fine</i>) and end at bar 8 (<i>Fine</i>).</p>
+      <p class="small muted">Notes: Ildefonso Alier edition (Madrid, plate I. 5230 A, public domain, IMSLP #292928), checked note-for-note against the Mutopia Project edition and an independent MIDI (IMSLP #200467). Left-hand fingering is from the Alier edition where printed; notes marked <span class="sugg">s</span> use suggested fingering. All right-hand (p i m a) fingering is suggested. <a href="#" data-goto="learn">Sources & more ›</a></p>
+    </div>
+  </section>
+
+  <!-- SCORE -->
+  <section class="view" id="view-score" data-view="score">
+    <div class="rangebar" id="rangeBar"></div>
+    <div class="row gap wrap small-controls">
+      <label class="seg"><span>Colour notes by</span>
+        <select id="colorMode"><option value="lh">Left-hand finger</option><option value="rh">Right-hand finger</option><option value="none">Plain</option></select></label>
+      <label class="seg"><span>Show</span><select id="showFingers"><option value="both">LH + RH fingering</option><option value="lh">LH fingering</option><option value="rh">RH fingering</option><option value="none">No fingering</option></select></label>
+    </div>
+    <div class="legend" id="scoreLegend"></div>
+    <div class="score-wrap" id="scoreWrap"><div id="alphaTab"></div><div class="loading" id="scoreLoading">Loading notation…</div></div>
+    <p class="small muted pad">Tip: tap any note in the score to jump there. Standard notation for guitar sounds an octave lower than written.</p>
+  </section>
+
+  <!-- LEFT HAND -->
+  <section class="view" id="view-lh" data-view="lh">
+    <div class="card tight">
+      <div class="row between"><h3 id="lhTitle">Left hand · Bar 1</h3><button class="btn tiny" id="flipBoard" aria-label="Flip fretboard view">⇅ <span id="flipLabel">Player’s view</span></button></div>
+      <div class="badges" id="lhBadges"></div>
+      <div class="fretboard" id="fretboard"></div>
+      <p class="small muted" id="boardCaption"></p>
+      <div class="legend" id="lhLegend"></div>
+    </div>
+    <div class="card tight"><div class="tabstrip" id="tabstripLH"></div></div>
+    <div class="card"><h3>This bar</h3><p id="lhTip"></p><p class="flag" id="lhFlag" hidden></p></div>
+    <div class="card"><h3>Left-hand basics</h3><ul class="tips">
+      <li><b>Thumb behind the neck</b>, roughly opposite finger 2, relaxed – it balances, it doesn’t squeeze.</li>
+      <li><b>Fingertips close to the fret</b> (just behind the metal), pressing only as hard as needed for a clean note.</li>
+      <li><b>Curved fingers</b> that land on their tips, so they don’t touch neighbouring strings (the open B must ring!).</li>
+      <li><b>Guide fingers:</b> when the same finger stays on the same string across a shift, slide it lightly along the string – it steers your hand (bars 1, 5, 12→13).</li>
+      <li><b>Half barre:</b> finger 1 lies flat across only the strings needed (e.g. strings 1–4 at fret 9 in bar 5). Use arm weight, not thumb squeeze.</li>
+      <li><b>Shift early and lightly:</b> release pressure, move, then press. Look at the target fret before you move.</li>
+    </ul></div>
+  </section>
+
+  <!-- RIGHT HAND -->
+  <section class="view" id="view-rh" data-view="rh">
+    <div class="card tight">
+      <h3 id="rhTitle">Right hand · Bar 1</h3>
+      <div class="hand" id="handDiagram"></div>
+      <p class="small muted" id="rhNow"></p>
+    </div>
+    <div class="card tight"><div class="tabstrip" id="tabstripRH"></div><div class="legend" id="rhLegend"></div></div>
+    <div class="card"><h3>This bar</h3><p id="rhTip"></p></div>
+    <div class="card"><h3>p · i · m · a – who plays what?</h3>
+      <p><b>p</b> = pulgar (thumb) · <b>i</b> = índice (index) · <b>m</b> = medio (middle) · <b>a</b> = anular (ring). The little finger isn’t used.</p>
+      <p><b>Home position:</b> p covers the bass strings 4–6, i rests near string 3, m near string 2, a near string 1. In Lágrima the thumb plays every bass note and a usually sings the melody on the 1st string.</p>
+    </div>
+    <div class="card"><h3>Free stroke vs rest stroke</h3>
+      <div class="strokes" id="strokeDiagram"></div>
+      <p><b>Free stroke (tirando):</b> the finger plucks and moves up into the palm, clearing the next string. Use it for arpeggios and chords – most of Lágrima.</p>
+      <p><b>Rest stroke (apoyando):</b> the finger plucks <i>through</i> the string and comes to rest on the next (lower-sounding) string. Fuller, warmer tone – great for melody notes when the next string isn’t needed right away.</p>
+      <p><b>Where in Lágrima?</b> Start with free stroke everywhere, bringing out the melody with a slightly firmer a. When comfortable, try rest strokes on the notes marked <span class="rs">R</span>: the descending run in <b>bar 14</b> (D–C–B, A–G–F♯, alternating i–m) and the off-beat melody notes in <b>bar 11</b>. In bars 1–8 the melody on string 1 is followed straight away by the open B, so keep those as firm free strokes.</p>
+      <p><b>Alternate i–m</b> for single-line melody (bar 14): never pluck twice in a row with the same finger; it keeps the line even and relaxed.</p>
+    </div>
+    <div class="card"><h3>Balance the voices</h3><p>Three layers: <b>melody</b> (loudest), <b>bass</b> (medium), <b>inner notes</b> like the repeated open B (softest). Practise playing the melody alone, then add the bass, then the soft inner notes.</p></div>
+  </section>
+
+  <!-- LEARN MORE -->
+  <section class="view" id="view-learn" data-view="learn">
+    <div id="learnContent"></div>
+  </section>
+</main>
+
+<!-- PLAYER DOCK -->
+<div class="dock" id="dock">
+  <div class="now" id="nowStrip"></div>
+  <div class="dock-row">
+    <button class="icon" id="btnPrevBar" aria-label="Previous bar">⏮</button>
+    <button class="icon" id="btnPrev" aria-label="Previous note">◀</button>
+    <button class="icon big" id="btnPlay" aria-label="Play">▶</button>
+    <button class="icon" id="btnNext" aria-label="Next note">▶︎|</button>
+    <button class="icon" id="btnNextBar" aria-label="Next bar">⏭</button>
+  </div>
+  <div class="dock-row small">
+    <label class="tempo">🐢 <input type="range" id="tempo" min="40" max="100" step="5" value="60"> <span id="tempoVal">60%</span></label>
+    <button class="chip" id="btnLoop" aria-pressed="true">🔁 Loop</button>
+    <button class="chip" id="btnMetro" aria-pressed="false">🥁 Click</button>
+  </div>
+  <div class="status small muted" id="status">Loading sound…</div>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button data-goto="home" class="active"><span>🏠</span>Plan</button>
+  <button data-goto="score"><span>🎼</span>Score</button>
+  <button data-goto="lh"><span>🤚</span>Left</button>
+  <button data-goto="rh"><span>✋</span>Right</button>
+  <button data-goto="learn"><span>📚</span>Learn</button>
+</nav>
+
+<script src="vendor/alphatab/alphaTab.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
