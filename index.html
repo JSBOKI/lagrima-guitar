@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#7a3e1d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Lágrima">
-<title>Lágrima · Guitar Coach</title>
+<meta name="apple-mobile-web-app-title" content="Guitar Coach">
+<title>Guitar Coach · Lágrima, fingerpicking, notes</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -15,16 +15,50 @@
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><span class="logo">𝄞</span><div><h1>Lágrima</h1><p>Tárrega · Preludio</p></div></div>
-  <div class="where" id="whereLabel">Bar 1</div>
+  <button class="brand" type="button" data-goto="hub"><span class="logo">𝄞</span><div><h1 id="brandTitle">Guitar Coach</h1><p id="brandSub">Lágrima · fingerpicking · notes</p></div></button>
+  <div class="where" id="whereLabel">Home</div>
 </header>
 
 <main id="views">
+  <!-- HUB -->
+  <section class="view active" id="view-hub" data-view="hub">
+    <div class="card hero">
+      <div class="ring" id="hubRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" id="hubRingFg"/></svg><span id="hubRingText">0%</span></div>
+      <div><h2>Hi Jeremy</h2><p class="muted">Lágrima, a fingerpicking course, and a fretboard trainer. Everything you already practised is still here.</p></div>
+    </div>
+    <button class="card hub-card" type="button" data-goto="home">
+      <div class="kicker">Classical</div>
+      <h2>Lágrima</h2>
+      <p>Score, left hand, right hand, and the day-by-day plan for Tárrega’s prelude.</p>
+      <p class="go" id="hubLagrima">Open the plan</p>
+    </button>
+    <button class="card hub-card" type="button" data-goto="course">
+      <div class="kicker">Folk &amp; Appalachian</div>
+      <h2>Fingerpicking course</h2>
+      <p>Steel-string p-i-m-a, Travis bass on C G Am D E, pinches, Carter style, rolls, slurs, drop D and open G/D, then a set of tunes.</p>
+      <p class="go" id="hubCourse">Start unit 1</p>
+    </button>
+    <button class="card hub-card" type="button" data-goto="trainer">
+      <div class="kicker">Notes on the neck</div>
+      <h2>Fretboard trainer</h2>
+      <p>Show the notes, find them, name them. Strings, positions I · V · VII, octaves, a timer, and the ones you keep missing.</p>
+      <p class="go" id="hubTrainer">Open the trainer</p>
+    </button>
+  </section>
+
   <!-- HOME / PRACTICE PLAN -->
-  <section class="view active" id="view-home" data-view="home">
+  <section class="view" id="view-home" data-view="home">
     <div class="card hero">
       <div class="ring" id="progressRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" id="ringFg"/></svg><span id="ringText">0%</span></div>
       <div><h2>Hi Jeremy 👋</h2><p class="muted" id="streakText">Let’s learn Lágrima, one small section at a time.</p></div>
+    </div>
+    <div class="card">
+      <h3>Also in the coach</h3>
+      <div class="row gap wrap">
+        <button class="btn" type="button" data-goto="course">🪕 Fingerpicking course</button>
+        <button class="btn" type="button" data-goto="trainer">🎯 Fretboard trainer</button>
+        <button class="btn" type="button" data-goto="hub">🏠 Home</button>
+      </div>
     </div>
     <div class="card today">
       <h3>Today’s practice <small id="todayDate"></small></h3>
@@ -104,7 +138,53 @@
   <section class="view" id="view-learn" data-view="learn">
     <div id="learnContent"></div>
   </section>
+
+  <!-- FINGERPICKING COURSE -->
+  <section class="view" id="view-course" data-view="course">
+    <div id="courseList"></div>
+    <div id="courseStage" hidden>
+      <div class="row gap wrap">
+        <button class="btn tiny" type="button" id="courseBack">← Lessons</button>
+        <button class="btn tiny" type="button" id="coursePrev">Previous</button>
+        <button class="btn tiny" type="button" id="courseNext">Next</button>
+      </div>
+      <div class="card">
+        <p class="small muted" id="courseKicker"></p>
+        <h2 id="courseTitle"></h2>
+        <p id="courseExplain"></p>
+        <p class="flag" id="courseRetune" hidden></p>
+        <p class="small" id="courseFingers"></p>
+        <p class="small muted" id="courseCredit"></p>
+      </div>
+      <div class="card tight">
+        <h3>Practice goals</h3>
+        <div class="row gap wrap" id="courseGoals"></div>
+        <div class="row gap" style="margin-top:8px"><button class="btn primary" type="button" id="courseDone">Mark complete</button></div>
+      </div>
+      <div class="score-wrap" id="courseWrap"><div id="courseTab"></div><div class="loading" id="courseLoading">Loading notation…</div></div>
+      <div class="legend" id="courseLegend"></div>
+    </div>
+  </section>
+
+  <!-- FRETBOARD TRAINER -->
+  <section class="view" id="view-trainer" data-view="trainer">
+    <div id="trainerRoot"></div>
+  </section>
 </main>
+
+<div class="dock course-dock" id="courseDock">
+  <div class="dock-row">
+    <button class="icon" type="button" id="courseStop" aria-label="Stop">⏹</button>
+    <button class="icon big" type="button" id="coursePlay" aria-label="Play">▶</button>
+    <span class="small muted" id="courseStatus">Loading notation…</span>
+  </div>
+  <div class="dock-row small wrap">
+    <label class="tempo">♩ <input type="range" id="courseTempo" min="40" max="140" step="2" value="60"> <span id="courseTempoVal">60 bpm</span></label>
+    <button class="chip" type="button" id="courseLoop" aria-pressed="true">🔁 Loop</button>
+    <button class="chip" type="button" id="courseMetro" aria-pressed="false">🥁 Click</button>
+    <button class="chip" type="button" id="courseCount" aria-pressed="true">1-2-3-4</button>
+  </div>
+</div>
 
 <!-- PLAYER DOCK -->
 <div class="dock" id="dock">
@@ -124,12 +204,18 @@
   <div class="status small muted" id="status">Loading sound…</div>
 </div>
 
-<nav class="tabs" id="tabs">
-  <button data-goto="home" class="active"><span>🏠</span>Plan</button>
-  <button data-goto="score"><span>🎼</span>Score</button>
-  <button data-goto="lh"><span>🤚</span>Left</button>
-  <button data-goto="rh"><span>✋</span>Right</button>
-  <button data-goto="learn"><span>📚</span>Learn</button>
+<nav class="tabs" id="tabs" hidden>
+  <button type="button" data-goto="home"><span>🏠</span>Plan</button>
+  <button type="button" data-goto="score"><span>🎼</span>Score</button>
+  <button type="button" data-goto="lh"><span>🤚</span>Left</button>
+  <button type="button" data-goto="rh"><span>✋</span>Right</button>
+  <button type="button" data-goto="learn"><span>📚</span>Learn</button>
+</nav>
+<nav class="tabs app" id="tabsApp">
+  <button type="button" data-goto="hub" class="active"><span>🏠</span>Home</button>
+  <button type="button" data-goto="home"><span>🎼</span>Lágrima</button>
+  <button type="button" data-goto="course"><span>🪕</span>Picking</button>
+  <button type="button" data-goto="trainer"><span>🎯</span>Notes</button>
 </nav>
 
 <script src="vendor/alphatab/alphaTab.min.js"></script>

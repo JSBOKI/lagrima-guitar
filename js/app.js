@@ -7,21 +7,65 @@ import { handSVG, strokeSVG } from "./hand.js";
 import { learnHTML, wireVideos } from "./learn.js";
 import * as plan from "./plan.js";
 import { pluck, audioCtx } from "./pluck.js";
+import * as course from "./course.js";
+import * as trainer from "./trainer.js";
 
 const $ = (id) => document.getElementById(id);
 const STRN = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th", 6: "6th" };
-const state = { from: 1, to: 16, full: true, events: [], cur: 0, view: "home", colorMode: "lh", show: "both", flip: false,
+const state = { from: 1, to: 16, full: true, events: [], cur: 0, view: "hub", colorMode: "lh", show: "both", flip: false,
   loop: true, metro: false, tempo: 60, playing: false, ready: false, beatMap: new Map(), api: null, stepSound: true };
 window.__lagrima = state; // for testing/debugging
 
 /* ---------------- Views & navigation ---------------- */
+const LAGRIMA = new Set(["home", "score", "lh", "rh", "learn"]);
+function chrome(view) {
+  const map = {
+    hub: ["Guitar Coach", "Lágrima · fingerpicking · notes", "Home"],
+    home: ["Lágrima", "Tárrega · Preludio", "Plan"],
+    score: ["Lágrima", "Tárrega · Preludio", "Score"],
+    lh: ["Lágrima", "Tárrega · Preludio", "Left hand"],
+    rh: ["Lágrima", "Tárrega · Preludio", "Right hand"],
+    learn: ["Lágrima", "Tárrega · Preludio", "Learn"],
+    course: ["Fingerpicking", "Folk & Appalachian", "Course"],
+    trainer: ["Fretboard", "Notes on the neck", "Trainer"],
+  };
+  const row = map[view] || map.hub;
+  $("brandTitle").textContent = row[0];
+  $("brandSub").textContent = row[1];
+  if (!["score", "lh", "rh"].includes(view)) $("whereLabel").textContent = row[2];
+}
+function renderHub() {
+  const pst = plan.load();
+  const pct = plan.progressPct(pst);
+  const sk = plan.streak(pst);
+  $("hubRingFg").style.strokeDashoffset = String(119.4 * (1 - pct / 100));
+  $("hubRingText").textContent = pct + "%";
+  $("hubLagrima").textContent = sk > 0 ? `Lágrima plan · ${pct}% learned · ${sk}-day streak` : `Lágrima plan · ${pct}% of the sections learned`;
+  const cs = course.stats();
+  $("hubCourse").textContent = cs.done ? `${cs.done} of ${cs.total} lessons complete` : "Start with right-hand posture";
+  const ts = trainer.stats();
+  $("hubTrainer").textContent = ts.correct ? `${ts.correct} right · best streak ${ts.best}${ts.weak ? " · shaky: " + ts.weak : ""}` : "Standard tuning · frets 0–12";
+}
 function goto(view) {
   state.view = view;
   document.querySelectorAll(".view").forEach((v) => v.classList.toggle("active", v.dataset.view === view));
+  const lagrima = LAGRIMA.has(view);
+  $("tabs").hidden = !lagrima;
+  $("tabsApp").hidden = lagrima;
   document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("active", b.dataset.goto === view));
-  document.body.classList.toggle("show-dock", ["score", "lh", "rh"].includes(view));
+  document.querySelectorAll("#tabsApp button").forEach((b) => b.classList.toggle("active", b.dataset.goto === view || (view === "home" && b.dataset.goto === "home")));
+  const practice = ["score", "lh", "rh"].includes(view);
+  document.body.classList.toggle("show-dock", practice);
+  if (view !== "course") course.left();
+  chrome(view);
   window.scrollTo(0, 0);
   if (view === "home") renderHome();
+  if (view === "hub") renderHub();
+  if (view === "course") course.entered();
+  if (view === "trainer") trainer.entered();
+  else trainer.left();
+  if (practice) renderCurrent();
+  if (!practice && state.playing && state.api) state.api.pause();
 }
 document.addEventListener("click", (e) => { const g = e.target.closest("[data-goto]"); if (g) { e.preventDefault(); goto(g.dataset.goto); } });
 
@@ -237,7 +281,14 @@ for (const id of ["tabstripLH", "tabstripRH"]) $(id).addEventListener("click", (
   const col = e.target.closest("[data-slot]"); const ev = state.events[state.cur]; if (!col || !ev) return;
   const i = state.events.findIndex((x) => x.n === ev.n && x.slot === +col.dataset.slot); if (i >= 0) step(i - state.cur, true);
 });
-document.addEventListener("keydown", (e) => { if (e.target.closest("input,select")) return; if (e.key === "ArrowRight") step(1); if (e.key === "ArrowLeft") step(-1); if (e.key === " ") { e.preventDefault(); $("btnPlay").click(); } });
+document.addEventListener("keydown", (e) => {
+  if (e.target.closest("input,select,textarea")) return;
+  if (state.view === "course") { if (e.key === " " && !e.target.closest("button")) { e.preventDefault(); course.coursePlayClick(); } return; }
+  if (state.view === "trainer" || state.view === "hub" || state.view === "learn") return;
+  if (e.key === "ArrowRight") step(1);
+  if (e.key === "ArrowLeft") step(-1);
+  if (e.key === " ") { e.preventDefault(); $("btnPlay").click(); }
+});
 
 /* ---------------- Boot ---------------- */
 state.flip = localStorage.getItem("lagrima.flip") === "1";
@@ -245,5 +296,9 @@ $("strokeDiagram").innerHTML = strokeSVG();
 $("learnContent").innerHTML = learnHTML(); wireVideos($("learnContent"));
 updateTempoLabel(); renderScoreLegend();
 state.events = buildEvents(1, 16); renderRangeBar(); renderCurrent(); renderHome();
+course.initCourse();
+trainer.initTrainer();
+window.addEventListener("guitar-progress", () => { if (state.view === "hub") renderHub(); });
+goto("hub");
 if (window.alphaTab) initAlphaTab(); else setStatus("Notation library failed to load.");
 if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});

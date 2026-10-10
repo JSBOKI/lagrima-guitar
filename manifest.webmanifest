@@ -1,6 +1,6 @@
 {
-  "name": "Lágrima – Guitar Coach",
-  "short_name": "Lágrima",
+  "name": "Guitar Coach",
+  "short_name": "Guitar",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
