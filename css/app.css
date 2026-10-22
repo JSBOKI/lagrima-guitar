@@ -117,3 +117,20 @@ body.show-course-dock{--dockh:118px}
 
 #courseTips ul { margin: 4px 0 0 18px; padding: 0; }
 #courseTips li { margin: 2px 0; }
+
+/* Tuner & metronome */
+.tuner-face{text-align:center}
+.tuner-note{font-size:4.2rem;font-weight:800;line-height:1;color:var(--ink);transition:color .15s} .tuner-note small{font-size:1.4rem;color:var(--muted);margin-left:2px}
+.tuner-note.ok{color:var(--f2)}
+.meter{position:relative;height:70px;margin:14px 8px 4px;border-bottom:2px solid var(--line)}
+.meter-zone{position:absolute;left:45%;width:10%;top:0;bottom:0;background:#dcfce7;border-radius:6px}
+.meter .tick{position:absolute;bottom:0;width:2px;height:16px;background:var(--line);transform:translateX(-1px)} .meter .tick i{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-style:normal;font-size:.7rem;color:var(--muted)}
+.needle{position:absolute;left:50%;bottom:0;width:4px;height:64px;margin-left:-2px;background:var(--accent);border-radius:2px;transition:left .12s linear;opacity:.25} .needle.ok{background:var(--f2)}
+.tuner-cents{margin-top:20px;font-weight:700;min-height:1.5em}
+#tunerStrings .chip.near{border-color:var(--f2);box-shadow:0 0 0 2px #86efac}
+.metro-bpm{display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 0} .metro-bpm span{font-size:1rem;min-width:6em;text-align:center} .metro-bpm b{font-size:2.4rem;font-variant-numeric:tabular-nums}
+.metro-dots{display:flex;justify-content:center;gap:10px;margin:12px 0} .metro-dots i{width:18px;height:18px;border-radius:50%;background:var(--line)} .metro-dots i.on{background:var(--wood)}
+.group-h{margin:16px 4px 6px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.song-list{list-style:none;margin:0;padding:0} .song-list li{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding:10px 0} .song-list li:first-child{border-top:0}
+.song-list .t{font-weight:650} .song-list .meta{font-size:.75rem;color:var(--muted)}
+.update-toast{position:fixed;left:10px;right:10px;top:10px;z-index:50;background:var(--wood);color:#fff;border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.2)} .update-toast button{background:#fff;color:var(--wood);border:0;border-radius:10px;padding:8px 12px;font:inherit;font-weight:700}

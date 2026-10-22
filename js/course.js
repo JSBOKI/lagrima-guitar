@@ -21,7 +21,8 @@ export function unitUnlocked(unitId, st = load()) {
   if (i <= 0 || UNITS[i].open) return true;
   return lessonsIn(UNITS[i - 1].id).every((l) => st.done[l.id]);
 }
-function lessonUnlocked(lesson, st = load()) { return unitUnlocked(lesson.unit, st); }
+function lessonUnlocked(lesson, st = load()) { return lesson.id === ui.forced || unitUnlocked(lesson.unit, st); }
+export function lessonState(id) { const l = LESSONS.find((x) => x.id === id); const st = load(); return l ? { done: !!st.done[id], unlocked: unitUnlocked(l.unit, st) } : null; }
 
 export function stats() {
   const st = load();
@@ -30,7 +31,7 @@ export function stats() {
   return { done, total: LESSONS.length, units, unitTotal: UNITS.length };
 }
 
-const ui = { lessonId: null, api: null, ready: false, playing: false, bpm: 60, loop: true, metro: false, countIn: true };
+const ui = { back: null, forced: null, lessonId: null, api: null, ready: false, playing: false, bpm: 60, loop: true, metro: false, countIn: true };
 
 function esc(s) { return String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c])); }
 
@@ -57,7 +58,7 @@ function renderList() {
   }).join("");
   $("courseList").innerHTML = `<div class="card hero">
       <div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" style="stroke-dashoffset:${119.4 * (1 - s.done / s.total)}"/></svg><span>${Math.round(100 * s.done / s.total)}%</span></div>
-      <div><h2>Fingerpicking &amp; song studies</h2><p class="muted">${s.done} of ${s.total} lessons · ${s.units} of ${s.unitTotal} units complete. Progress stays in this browser.</p></div>
+      <div><h2>Fingerpicking course</h2><p class="muted">${s.done} of ${s.total} lessons · ${s.units} of ${s.unitTotal} units complete. Progress stays in this browser.</p><p class="small muted">The tunes (Unit 9) and the song study (Unit 10) are also listed under <a href="#" data-goto="songs">Songs</a>.</p></div>
     </div>
     ${issues.length ? `<div class="card flag">${esc(issues.join(" "))}</div>` : ""}
     ${units}`;
@@ -136,9 +137,14 @@ function loadTex() {
   catch (err) { console.error(err); setStatus(err.message); $("courseLoading").hidden = true; }
 }
 
-export function openLesson(id) {
+// opts.force: open even if its unit is still locked (Songs section, deep links). opts.back: view for the back button.
+export function openLesson(id, opts = {}) {
   const lesson = LESSONS.find((l) => l.id === id);
-  if (!lesson || !lessonUnlocked(lesson)) return;
+  if (!lesson) return false;
+  if (opts.force) ui.forced = id;
+  if (!lessonUnlocked(lesson)) return false;
+  ui.back = opts.back || null;
+  $("courseBack").textContent = ui.back === "songs" ? "← Songs" : "← Lessons";
   ui.lessonId = id;
   $("courseList").hidden = true;
   $("courseStage").hidden = false;
@@ -147,9 +153,11 @@ export function openLesson(id) {
   ensureApi();
   if (ui.api) loadTex();
   window.scrollTo(0, 0);
+  return true;
 }
 
 function showList() {
+  if (ui.back) { const v = ui.back; ui.back = null; if (ui.api && ui.playing) ui.api.pause(); ui.lessonId = null; $("courseStage").hidden = true; $("courseList").hidden = false; document.body.classList.remove("show-course-dock"); window.dispatchEvent(new CustomEvent("guitar-goto", { detail: v })); return; }
   if (ui.api && ui.playing) ui.api.pause();
   ui.lessonId = null;
   $("courseStage").hidden = true;

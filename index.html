@@ -24,22 +24,28 @@
   <section class="view active" id="view-hub" data-view="hub">
     <div class="card hero">
       <div class="ring" id="hubRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" id="hubRingFg"/></svg><span id="hubRingText">0%</span></div>
-      <div><h2>Hi Jeremy</h2><p class="muted">Lágrima, a fingerpicking course, and a fretboard trainer. Everything you already practised is still here.</p></div>
+      <div><h2>Hi Jeremy</h2><p class="muted">Songs you’re learning, technique, and practice tools. Everything you already practised is still here.</p></div>
+    </div>
+    <div class="row gap wrap" style="margin:0 0 10px">
+      <button class="btn" type="button" data-goto="songs">🎵 Songs</button>
+      <button class="btn" type="button" data-goto="technique">📚 Learn</button>
+      <button class="btn" type="button" data-goto="tuner">🎙️ Tuner</button>
+      <button class="btn" type="button" data-goto="metronome">🥁 Metronome</button>
     </div>
     <button class="card hub-card" type="button" data-goto="home">
-      <div class="kicker">Classical</div>
+      <div class="kicker">Song · Classical</div>
       <h2>Lágrima</h2>
       <p>Score, left hand, right hand, and the day-by-day plan for Tárrega’s prelude.</p>
       <p class="go" id="hubLagrima">Open the plan</p>
     </button>
     <button class="card hub-card" type="button" data-goto="course">
-      <div class="kicker">Folk &amp; Appalachian</div>
+      <div class="kicker">Learn · Folk &amp; Appalachian technique</div>
       <h2>Fingerpicking course</h2>
       <p>Steel-string p-i-m-a, Travis bass on C G Am D E, pinches, Carter style, rolls, slurs, drop D and open G/D, then a set of tunes.</p>
       <p class="go" id="hubCourse">Start unit 1</p>
     </button>
     <button class="card hub-card" type="button" data-goto="trainer">
-      <div class="kicker">Notes on the neck</div>
+      <div class="kicker">Tool · Notes on the neck</div>
       <h2>Fretboard trainer</h2>
       <p>Show the notes, find them, name them. Strings, positions I · V · VII, octaves, a timer, and the ones you keep missing.</p>
       <p class="go" id="hubTrainer">Open the trainer</p>
@@ -57,6 +63,8 @@
       <div class="row gap wrap">
         <button class="btn" type="button" data-goto="course">🪕 Fingerpicking course</button>
         <button class="btn" type="button" data-goto="trainer">🎯 Fretboard trainer</button>
+        <button class="btn" type="button" data-goto="songs">🎵 All songs</button>
+        <button class="btn" type="button" data-goto="tuner">🎙️ Tuner</button>
         <button class="btn" type="button" data-goto="hub">🏠 Home</button>
       </div>
     </div>
@@ -167,6 +175,19 @@
     </div>
   </section>
 
+  <!-- SONGS -->
+  <section class="view" id="view-songs" data-view="songs"><div id="songsRoot"></div></section>
+  <!-- LEARN / TECHNIQUE -->
+  <section class="view" id="view-technique" data-view="technique"><div id="techRoot"></div></section>
+  <!-- PRACTICE TOOLS -->
+  <section class="view" id="view-tools" data-view="tools">
+    <button class="card hub-card" type="button" data-goto="tuner"><div class="kicker">Mic</div><h2>🎙️ Tuner</h2><p>Chromatic tuner with a cents needle, auto string detection, reference tones and A4 calibration.</p></button>
+    <button class="card hub-card" type="button" data-goto="metronome"><div class="kicker">Time</div><h2>🥁 Metronome</h2><p>Tempo, beats per bar, accent, subdivisions.</p></button>
+    <button class="card hub-card" type="button" data-goto="trainer"><div class="kicker">Notes on the neck</div><h2>🎯 Fretboard trainer</h2><p>Show, find and name notes; octaves; a timer; the ones you keep missing.</p></button>
+  </section>
+  <section class="view" id="view-tuner" data-view="tuner"><div id="tunerRoot"></div></section>
+  <section class="view" id="view-metronome" data-view="metronome"><div id="metroRoot"></div></section>
+
   <!-- FRETBOARD TRAINER -->
   <section class="view" id="view-trainer" data-view="trainer">
     <div id="trainerRoot"></div>
@@ -206,6 +227,7 @@
 </div>
 
 <nav class="tabs" id="tabs" hidden>
+  <button type="button" data-goto="songs"><span>‹</span>Songs</button>
   <button type="button" data-goto="home"><span>🏠</span>Plan</button>
   <button type="button" data-goto="score"><span>🎼</span>Score</button>
   <button type="button" data-goto="lh"><span>🤚</span>Left</button>
@@ -214,9 +236,9 @@
 </nav>
 <nav class="tabs app" id="tabsApp">
   <button type="button" data-goto="hub" class="active"><span>🏠</span>Home</button>
-  <button type="button" data-goto="home"><span>🎼</span>Lágrima</button>
-  <button type="button" data-goto="course"><span>🪕</span>Picking</button>
-  <button type="button" data-goto="trainer"><span>🎯</span>Notes</button>
+  <button type="button" data-goto="songs"><span>🎵</span>Songs</button>
+  <button type="button" data-goto="technique"><span>📚</span>Learn</button>
+  <button type="button" data-goto="tools"><span>🧰</span>Tools</button>
 </nav>
 
 <script src="vendor/alphatab/alphaTab.min.js"></script>

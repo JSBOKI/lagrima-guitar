@@ -8,6 +8,8 @@ import { learnHTML, wireVideos } from "./learn.js";
 import * as plan from "./plan.js";
 import { pluck, audioCtx } from "./pluck.js";
 import * as course from "./course.js";
+import * as tools from "./tools.js";
+import { LESSONS, UNITS } from "./course-data.js";
 import * as trainer from "./trainer.js";
 
 const $ = (id) => document.getElementById(id);
@@ -28,6 +30,11 @@ function chrome(view) {
     learn: ["Lágrima", "Tárrega · Preludio", "Learn"],
     course: ["Fingerpicking", "Folk & Appalachian", "Course"],
     trainer: ["Fretboard", "Notes on the neck", "Trainer"],
+    songs: ["Songs", "Classical · Folk · Rock/Pop", "Songs"],
+    technique: ["Learn", "Technique & courses", "Learn"],
+    tools: ["Practice tools", "Tuner · metronome · fretboard", "Tools"],
+    tuner: ["Tuner", "Standard tuning · E A D G B E", "Tuner"],
+    metronome: ["Metronome", "Keep time", "Metronome"],
   };
   const row = map[view] || map.hub;
   $("brandTitle").textContent = row[0];
@@ -46,14 +53,16 @@ function renderHub() {
   const ts = trainer.stats();
   $("hubTrainer").textContent = ts.correct ? `${ts.correct} right · best streak ${ts.best}${ts.weak ? " · shaky: " + ts.weak : ""}` : "Standard tuning · frets 0–12";
 }
+const SECTION = { hub: "hub", songs: "songs", technique: "technique", course: "technique", tools: "tools", tuner: "tools", metronome: "tools", trainer: "tools" };
 function goto(view) {
+  if (!document.querySelector(`.view[data-view="${view}"]`)) view = "hub";
   state.view = view;
   document.querySelectorAll(".view").forEach((v) => v.classList.toggle("active", v.dataset.view === view));
   const lagrima = LAGRIMA.has(view);
   $("tabs").hidden = !lagrima;
   $("tabsApp").hidden = lagrima;
   document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("active", b.dataset.goto === view));
-  document.querySelectorAll("#tabsApp button").forEach((b) => b.classList.toggle("active", b.dataset.goto === view || (view === "home" && b.dataset.goto === "home")));
+  document.querySelectorAll("#tabsApp button").forEach((b) => b.classList.toggle("active", b.dataset.goto === (SECTION[view] || view)));
   const practice = ["score", "lh", "rh"].includes(view);
   document.body.classList.toggle("show-dock", practice);
   if (view !== "course") course.left();
@@ -62,12 +71,52 @@ function goto(view) {
   if (view === "home") renderHome();
   if (view === "hub") renderHub();
   if (view === "course") course.entered();
+  if (view === "songs") renderSongs();
+  if (view === "technique") renderTech();
+  if (view !== "tuner") tools.leftTuner();
+  if (view !== "metronome") tools.leftMetro();
   if (view === "trainer") trainer.entered();
   else trainer.left();
   if (practice) renderCurrent();
   if (!practice && state.playing && state.api) state.api.pause();
 }
 document.addEventListener("click", (e) => { const g = e.target.closest("[data-goto]"); if (g) { e.preventDefault(); goto(g.dataset.goto); } });
+
+/* ---------------- Songs & Learn hubs ---------------- */
+// Genre for every song-like course lesson. Unit 9 tunes are folk; Unit 10 is a rock/pop song study.
+const SONG_GROUPS = [
+  { id: "classical", title: "Classical", items: [{ kind: "lagrima" }] },
+  { id: "folk", title: "Folk & Appalachian", items: LESSONS.filter((l) => l.unit === "u9").map((l) => ({ kind: "lesson", id: l.id })) },
+  { id: "rock", title: "Rock / Pop", song: "Every Breath You Take", sub: "The Police · Sting · A♭ · ~117 bpm", items: LESSONS.filter((l) => l.unit === "u10").map((l) => ({ kind: "lesson", id: l.id })) },
+];
+const escH = (t) => String(t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+function renderSongs() {
+  const pct = plan.progressPct(plan.load());
+  $("songsRoot").innerHTML = `<div class="card hero"><div><h2>Songs</h2><p class="muted">The pieces you’re learning, by genre. Technique units and drills live under <a href="#" data-goto="technique">Learn</a>.</p></div></div>` +
+    SONG_GROUPS.map((g) => `<div class="group-h">${escH(g.title)}</div><div class="card">${g.song ? `<h3>${escH(g.song)}</h3><p class="small muted">${escH(g.sub)} · ${g.items.length} lessons</p>` : ""}<ul class="song-list">${g.items.map((it) => {
+      if (it.kind === "lagrima") return `<li><div><div class="t">Lágrima — Tárrega</div><div class="meta">Score · left hand · right hand · daily plan · ${pct}% learned</div></div><button class="btn tiny" type="button" data-goto="home">Open</button></li>`;
+      const l = LESSONS.find((x) => x.id === it.id), st = course.lessonState(it.id);
+      return `<li><div><div class="t">${escH(l.title)}</div><div class="meta">${st.done ? "✓ complete" : st.unlocked ? "ready" : "course unit not finished yet — open anyway"} · ${l.goals[0]}→${l.goals[l.goals.length - 1]} bpm</div></div><button class="btn tiny" type="button" data-song="${l.id}">Open</button></li>`;
+    }).join("")}</ul></div>`).join("");
+}
+function renderTech() {
+  const cs = course.stats();
+  const techUnits = UNITS.filter((u) => u.id !== "u9" && u.id !== "u10");
+  $("techRoot").innerHTML = `<div class="card hero"><div><h2>Learn</h2><p class="muted">Technique, courses and exercises. Songs are in <a href="#" data-goto="songs">Songs</a>; tuner, metronome and the fretboard trainer are in <a href="#" data-goto="tools">Tools</a>.</p></div></div>
+    <div class="group-h">Fingerpicking course · steel string</div>
+    <button class="card hub-card" type="button" data-goto="course"><div class="kicker">${cs.done} of ${cs.total} lessons · ${cs.units}/${cs.unitTotal} units</div><h2>🪕 Fingerpicking course</h2>
+      <p>${techUnits.map((u, i) => `${i + 1}. ${escH(u.title)}`).join(" · ")}</p><p class="go">Open the course (units, progress, locks)</p></button>
+    <div class="group-h">Classical technique (from Lágrima)</div>
+    <div class="card"><ul class="song-list">
+      <li><div><div class="t">🤚 Left hand</div><div class="meta">Fretboard view per bar, finger tips, shifts, half barre</div></div><button class="btn tiny" type="button" data-goto="lh">Open</button></li>
+      <li><div><div class="t">✋ Right hand</div><div class="meta">p·i·m·a, free vs rest stroke, voice balance</div></div><button class="btn tiny" type="button" data-goto="rh">Open</button></li>
+      <li><div><div class="t">📚 Sources &amp; videos</div><div class="meta">Background, editions and recommended lessons</div></div><button class="btn tiny" type="button" data-goto="learn">Open</button></li>
+    </ul></div>
+    <div class="group-h">Song-specific drills</div>
+    <div class="card"><p class="small">The “Every Breath You Take” add9 stretch and arpeggio drills are with the song under <a href="#" data-goto="songs">Songs › Rock / Pop</a>.</p></div>`;
+}
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-song]"); if (b) { goto("course"); course.openLesson(b.dataset.song, { force: true, back: "songs" }); } });
+window.addEventListener("guitar-goto", (e) => goto(e.detail));
 
 /* ---------------- Range / score loading ---------------- */
 function renderRangeBar() {
@@ -284,7 +333,7 @@ for (const id of ["tabstripLH", "tabstripRH"]) $(id).addEventListener("click", (
 document.addEventListener("keydown", (e) => {
   if (e.target.closest("input,select,textarea")) return;
   if (state.view === "course") { if (e.key === " " && !e.target.closest("button")) { e.preventDefault(); course.coursePlayClick(); } return; }
-  if (state.view === "trainer" || state.view === "hub" || state.view === "learn") return;
+  if (!["score", "lh", "rh", "home"].includes(state.view)) return;
   if (e.key === "ArrowRight") step(1);
   if (e.key === "ArrowLeft") step(-1);
   if (e.key === " ") { e.preventDefault(); $("btnPlay").click(); }
@@ -299,8 +348,37 @@ state.events = buildEvents(1, 16); renderRangeBar(); renderCurrent(); renderHome
 course.initCourse();
 trainer.initTrainer();
 window.addEventListener("guitar-progress", () => { if (state.view === "hub") renderHub(); });
+tools.initTools();
 goto("hub");
-const deep = location.hash.match(/^#lesson=([\w-]+)/);
-if (deep) { goto("course"); course.openLesson(deep[1]); }
+// Deep links: #lesson=<id> opens a course lesson; #view=<name> (or #tuner, #songs …) opens a screen.
+function routeHash() {
+  const h = location.hash;
+  const deep = h.match(/^#lesson=([\w-]+)/);
+  if (deep) { goto("course"); course.openLesson(deep[1], { force: true }); return; }
+  const v = h.match(/^#(?:view=)?([a-z]+)$/);
+  if (v && document.querySelector(`.view[data-view="${v[1]}"]`)) goto(v[1]);
+}
+routeHash();
+window.addEventListener("hashchange", routeHash);
 if (window.alphaTab) initAlphaTab(); else setStatus("Notation library failed to load.");
-if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+// Updates: the new service worker activates immediately (skipWaiting + clients.claim); when it takes over we
+// reload straight away if nothing is playing, otherwise show a "new version" bar.
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hadController || reloaded) return;
+    const busy = state.playing || document.body.classList.contains("show-course-dock") || state.view === "tuner" || state.view === "metronome";
+    if (!busy) { reloaded = true; location.reload(); return; }
+    if (document.getElementById("updateToast")) return;
+    const t = document.createElement("div");
+    t.className = "update-toast"; t.id = "updateToast";
+    t.innerHTML = `<span>A new version of the app is ready.</span><button type="button">Reload</button>`;
+    t.querySelector("button").addEventListener("click", () => { reloaded = true; location.reload(); });
+    document.body.appendChild(t);
+  });
+  navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then((reg) => {
+    reg.update().catch(() => {});
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
+  }).catch(() => {});
+}
