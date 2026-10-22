@@ -114,3 +114,6 @@ body.show-course-dock{--dockh:118px}
 @media (min-width:1000px){
   body:has(#view-trainer.active) main,body:has(#view-course.active) main{max-width:980px}
 }
+
+#courseTips ul { margin: 4px 0 0 18px; padding: 0; }
+#courseTips li { margin: 2px 0; }

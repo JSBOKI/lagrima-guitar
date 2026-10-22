@@ -300,5 +300,7 @@ course.initCourse();
 trainer.initTrainer();
 window.addEventListener("guitar-progress", () => { if (state.view === "hub") renderHub(); });
 goto("hub");
+const deep = location.hash.match(/^#lesson=([\w-]+)/);
+if (deep) { goto("course"); course.openLesson(deep[1]); }
 if (window.alphaTab) initAlphaTab(); else setStatus("Notation library failed to load.");
 if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});

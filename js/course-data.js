@@ -22,6 +22,17 @@ export const CHORDS = {
   Dopeng: { tuning: "openg", rootAt: { s: 5, f: 7 }, fifthAt: { s: 4, f: 7 }, tones: [2, 6, 9], shape: { 6: 7, 5: 7, 4: 7, 3: 7, 2: 7, 1: 7 } },
   Dopend: { tuning: "opend", rootAt: { s: 6, f: 0 }, fifthAt: { s: 5, f: 0 }, tones: [2, 6, 9], shape: { 6: 0, 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
   Aopend: { tuning: "opend", rootAt: { s: 6, f: 7 }, fifthAt: { s: 5, f: 7 }, tones: [9, 1, 4], shape: { 6: 7, 5: 7, 4: 7, 3: 7, 2: 7, 1: 7 } },
+  // Song study: stretched add9 shapes, original key of Ab, standard tuning, no capo.
+  Abadd9: { tuning: "standard", rootAt: { s: 6, f: 4 }, fifthAt: { s: 5, f: 6 }, tones: [8, 0, 3, 10], shape: { 6: 4, 5: 6, 4: 8, 3: 5 } },
+  Fmadd9: { tuning: "standard", rootAt: { s: 6, f: 1 }, fifthAt: { s: 5, f: 3 }, tones: [5, 8, 0, 7], shape: { 6: 1, 5: 3, 4: 5, 3: 1 } },
+  Dbadd9: { tuning: "standard", rootAt: { s: 5, f: 4 }, fifthAt: { s: 4, f: 6 }, tones: [1, 5, 8, 3], shape: { 5: 4, 4: 6, 3: 8, 2: 6 } },
+  Ebadd9: { tuning: "standard", rootAt: { s: 5, f: 6 }, fifthAt: { s: 4, f: 8 }, tones: [3, 7, 10, 5], shape: { 5: 6, 4: 8, 3: 10, 2: 8 } },
+  Gbadd9: { tuning: "standard", rootAt: { s: 6, f: 2 }, fifthAt: { s: 5, f: 4 }, tones: [6, 10, 1, 8], shape: { 6: 2, 5: 4, 4: 6, 3: 3 } },
+  Fbadd9: { tuning: "standard", rootAt: { s: 6, f: 0 }, fifthAt: { s: 5, f: 2 }, tones: [4, 8, 11, 6], shape: { 6: 0, 5: 2, 4: 4, 3: 1 } },
+  Gadd9: { tuning: "standard", rootAt: { s: 6, f: 3 }, fifthAt: { s: 4, f: 0 }, tones: [7, 11, 2, 9], shape: { 6: 3, 4: 0, 3: 2, 2: 0 } },
+  Emadd9: { tuning: "standard", rootAt: { s: 6, f: 0 }, fifthAt: { s: 5, f: 2 }, tones: [4, 7, 11, 6], shape: { 6: 0, 5: 2, 4: 4, 3: 0 } },
+  Cadd9: { tuning: "standard", rootAt: { s: 5, f: 3 }, fifthAt: { s: 6, f: 3 }, tones: [0, 4, 7, 2], shape: { 5: 3, 4: 2, 3: 0, 2: 3 } },
+  Dadd9: { tuning: "standard", rootAt: { s: 4, f: 0 }, fifthAt: { s: 5, f: 0 }, tones: [2, 6, 9, 4], shape: { 4: 0, 3: 2, 2: 3, 1: 0 } },
 };
 
 export const UNITS = [
@@ -34,6 +45,7 @@ export const UNITS = [
   { id: "u7", title: "Hammer-ons and pull-offs", blurb: "Left-hand slurs that don’t stop the thumb." },
   { id: "u8", title: "Drop D, open G, open D", blurb: "Retune, check the open strings, then a simple alternating bass in each tuning." },
   { id: "u9", title: "Tunes", blurb: "Short original settings of public-domain melodies, plus one original study in place of Freight Train." },
+  { id: "u10", open: true, title: "Song study: Every Breath You Take", blurb: "The Police (Sting, 1983). Andy Summers’ ringing add9 arpeggio riff in the original key of A♭, standard tuning, no capo. Open any time — this unit is not locked. Chords, picking and drills only; no lyrics." },
 ];
 
 const Gpat = "p6.3:2@R i3.0@c p4.0@5 m2.0@c p6.3:2@R i3.0@c p4.0@5 m1.3:4@c";
@@ -378,3 +390,99 @@ p5.3:3@R/q p6.3:4@5/q p5.3:3@R/h |
 p4.0@R/q p5.0@5/q p4.0@R/q p5.0@5/q |
 p4.0@R/w` },
 ];
+
+// ── Unit 10: song study. Original drills on the chord shapes; not a transcription. ──
+// arp(root, fifth, ninth, third): one bar of steady eighths, R 5 9 5 3 5 9 5.
+const arp = (R, F, N, T) => `${R}@R ${F}@5 ${N}@c ${F}@5 ${T}@c ${F}@5 ${N}@c ${F}@5`;
+const AB = arp("p6.4:1", "p5.6:3", "i4.8:4", "m3.5:2");
+const FM = arp("p6.1:1", "p5.3:3", "i4.5:4", "m3.1:1");
+const DB = arp("p5.4:1", "p4.6:3", "i3.8:4", "m2.6:2");
+const EB = arp("p5.6:1", "p4.8:3", "i3.10:4", "m2.8:2");
+const GB = arp("p6.2:1", "p5.4:3", "i4.6:4", "m3.3:2");
+const FB = arp("p6.0", "p5.2:1", "i4.4:4", "m3.1:2");
+const ebytTips = (extra) => [
+  "Cutting the stretch short: if the pinky can’t reach the 9th, the riff loses its shimmer. Slide the thumb lower behind the neck and bring the elbow in rather than skipping the note.",
+  "Lifting fingers between notes: hold the whole shape for the full bar so every note keeps ringing into the next — the sound is a cloud, not a melody.",
+  "Muting too hard: the palm rests lightly on the bass strings near the bridge — enough to round off the attack, not enough to choke the ring.",
+  "Rushing: steady eighths, no accents except a gentle lean on beat 1. Use the Click and practise at the slow tempo before the goal tempo.",
+  ...(extra || []),
+];
+
+LESSONS.push(
+  { id: "ebyt-intro", unit: "u10", title: "A♭add9: the stretch and the riff cell",
+    explain: "The whole song lives on one idea: hold a stretched add9 chord and pick its notes one at a time in steady eighths, letting everything ring. The original recording is in A♭, so we play it there in standard tuning — no capo. A♭add9 sits at the 4th fret: finger 1 on the 6th string fret 4 (A♭, root), finger 3 on the 5th string fret 6 (E♭, fifth), finger 4 reaches to the 4th string fret 8 (B♭, the 9th — the magic note), finger 2 on the 3rd string fret 5 (C, the third). That 4→8 reach is the stretch. Bar 1: each note slowly, checking it rings. Bar 2: the pattern root–5–9–5–3–5–9–5. Bars 3–4: same, loop it. Start at 60 bpm; the record is about 117.",
+    fingers: "Shape (6th→3rd string): 4 · 6 · 8 · 5 with fingers 1 · 3 · 4 · 2. Pick it with a flatpick (alternate down–up) or fingers p p i m as shown. Palm resting lightly on strings 6–5.",
+    tips: ebytTips(["Can’t make the stretch yet? Practise the shape higher up the neck (frets are closer there), then walk it down one fret per day until it fits at fret 4."]),
+    credit: "“Every Breath You Take” by Sting (The Police, 1983). Original practice drills — no lyrics, not a transcription.",
+    goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "abmajor", chords: "Abadd9",
+    v1: `p6.4:1@R/q p5.6:3@5/q i4.8:4@c/q m3.5:2@c/q |
+${AB} |
+${AB} |
+${AB}` },
+
+  { id: "ebyt-vi", unit: "u10", title: "I to vi: A♭add9 → Fm(add9)",
+    explain: "The vi chord is the same stretched grip slid down three frets to the 1st fret: F on the 6th string (finger 1), C on the 5th string fret 3 (finger 3), G on the 4th string fret 5 (finger 4, the 9th), and A♭ on the 3rd string fret 1 — finger 1 again, or roll it with a mini-barre. Same right-hand pattern. The change is a slide: keep the hand shape frozen and move it as one unit. Two bars each, looping.",
+    fingers: "Fm(add9): 1 · 3 · 5 · 1 on strings 6–3. Left hand moves as a block; right hand never stops.",
+    tips: ebytTips(["Stopping the right hand to change chords: the last eighth of the bar is the moment to move — let it ring while the hand travels."]),
+    credit: "Original practice drill. No lyrics.",
+    goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "abmajor", chords: ["Abadd9", "Abadd9", "Fmadd9", "Fmadd9"],
+    v1: `${AB} |
+${AB} |
+${FM} |
+${FM}` },
+
+  { id: "ebyt-IV-V", unit: "u10", title: "IV and V: D♭add9 and E♭add9 on the 5th string",
+    explain: "For IV and V the same stretch moves over one string set. D♭add9: finger 1 on the 5th string fret 4 (D♭), finger 3 on the 4th string fret 6 (A♭), finger 4 on the 3rd string fret 8 (E♭, the 9th), finger 2 on the 2nd string fret 6 (F). E♭add9 is the identical grip two frets higher (6 · 8 · 10 · 8). Mute the 6th string with the tip of finger 1. Pattern unchanged: root–5–9–5–3–5–9–5.",
+    fingers: "D♭add9: x · 4 · 6 · 8 · 6. E♭add9: x · 6 · 8 · 10 · 8. Fingers 1 · 3 · 4 · 2 for both.",
+    tips: ebytTips(["Letting the open 6th string ring under the 5th-string shapes: it clashes. Touch it with the tip of finger 1."]),
+    credit: "Original practice drill. No lyrics.",
+    goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "abmajor", chords: ["Dbadd9", "Ebadd9", "Dbadd9", "Ebadd9"],
+    v1: `${DB} |
+${EB} |
+${DB} |
+${EB}` },
+
+  { id: "ebyt-verse", unit: "u10", title: "The verse: I – vi – IV – V",
+    explain: "Now the full verse loop in A♭: two bars of A♭add9, two of Fm(add9), one of D♭add9, one of E♭add9, then back to two of A♭add9. That’s I–vi–IV–V–I, the classic doo-wop-style progression the song is built on. Practice plan: (1) 60 bpm with Loop and Click on until four passes in a row are clean. (2) 80. (3) 100. (4) 117 — record tempo. Only move up a step when no note dies early and no change is late.",
+    fingers: "Bars: A♭ A♭ | Fm Fm | D♭ | E♭ | A♭ A♭. Same pattern in every bar.",
+    tips: ebytTips(["Playing it louder as you speed up: keep the dynamic low and even; the riff is hypnotic because it never changes intensity."]),
+    credit: "Chord progression only — original drill. No lyrics.",
+    goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "abmajor",
+    chords: ["Abadd9", "Abadd9", "Fmadd9", "Fmadd9", "Dbadd9", "Ebadd9", "Abadd9", "Abadd9"],
+    v1: `${AB} |
+${AB} |
+${FM} |
+${FM} |
+${DB} |
+${EB} |
+${AB} |
+${AB}` },
+
+  { id: "ebyt-bridge", unit: "u10", title: "The middle eight: ♭VI – ♭VII – I",
+    explain: "The bridge lifts away from the verse with borrowed chords: ♭VI (F♭, which you finger as E) to ♭VII (G♭) to I (A♭), and the second time it turns to V (E♭) to lead back into the verse. The grips are the same stretched add9 on the 6th string: F♭/E at the open position (0 · 2 · 4 · 1 — the open low string is the root), G♭add9 at the 2nd fret (2 · 4 · 6 · 3). The original part gets more insistent here — you can dig in a little and lift the palm slightly so the notes open up.",
+    fingers: "F♭(E)add9: 0 · 2 · 4 · 1 · G♭add9: 2 · 4 · 6 · 3 · A♭add9: 4 · 6 · 8 · 5 · E♭add9: x · 6 · 8 · 10 · 8.",
+    tips: ebytTips(["Missing the shift back into the verse: the E♭ bar is your signpost — count it out loud the first few times."]),
+    credit: "Harmony only — original drill. No lyrics.",
+    goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "abmajor",
+    chords: ["Fbadd9", "Gbadd9", "Abadd9", "Abadd9", "Fbadd9", "Gbadd9", "Ebadd9", "Ebadd9"],
+    v1: `${FB} |
+${GB} |
+${AB} |
+${AB} |
+${FB} |
+${GB} |
+${EB} |
+${EB}` },
+
+  { id: "ebyt-easy", unit: "u10", title: "Beginner option: the same riff in G, open position",
+    explain: "If the A♭ stretch isn’t there yet, play the whole song a half step lower in G with open-string shapes — still standard tuning, no capo. Everything rings more easily because open strings do half the work: Gadd9, Em(add9), Cadd9, Dadd9 (I–vi–IV–V). It sounds a semitone below the record, so use it for practice on its own; switch to the A♭ shapes to play along. Same eighth-note feel, same let-ring rule.",
+    fingers: "Gadd9: 3 x 0 2 0 x · Em(add9): 0 2 4 0 x x · Cadd9: x 3 2 0 3 x · Dadd9: x x 0 2 3 0.",
+    tips: ebytTips(["Forgetting this version is a half step low: it won’t line up with the recording — it’s for building the hand pattern."]),
+    credit: "Original simplified drill in G. No lyrics.",
+    goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "gmajor",
+    chords: ["Gadd9", "Emadd9", "Cadd9", "Dadd9"],
+    v1: `p6.3:3@R p4.0@5 i3.2:2@c p4.0@5 m2.0@c p4.0@5 i3.2:2@c p4.0@5 |
+p6.0@R p5.2:2@5 i4.4:4@c p5.2:2@5 m3.0@c p5.2:2@5 i4.4:4@c p5.2:2@5 |
+p5.3:3@R p4.2:2@c i3.0@c p4.2:2@c m2.3:4@c p4.2:2@c i3.0@c p4.2:2@c |
+p4.0@R i3.2:1@c m2.3:3@c i3.2:1@c a1.0@c i3.2:1@c m2.3:3@c i3.2:1@c` },
+);

@@ -18,7 +18,7 @@ function lessonsIn(unitId) { return LESSONS.filter((l) => l.unit === unitId); }
 function unitIndex(id) { return UNITS.findIndex((u) => u.id === id); }
 export function unitUnlocked(unitId, st = load()) {
   const i = unitIndex(unitId);
-  if (i <= 0) return true;
+  if (i <= 0 || UNITS[i].open) return true;
   return lessonsIn(UNITS[i - 1].id).every((l) => st.done[l.id]);
 }
 function lessonUnlocked(lesson, st = load()) { return unitUnlocked(lesson.unit, st); }
@@ -57,7 +57,7 @@ function renderList() {
   }).join("");
   $("courseList").innerHTML = `<div class="card hero">
       <div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" style="stroke-dashoffset:${119.4 * (1 - s.done / s.total)}"/></svg><span>${Math.round(100 * s.done / s.total)}%</span></div>
-      <div><h2>Fingerpicking</h2><p class="muted">${s.done} of ${s.total} lessons · ${s.units} of ${s.unitTotal} units complete. Progress stays in this browser.</p></div>
+      <div><h2>Fingerpicking &amp; song studies</h2><p class="muted">${s.done} of ${s.total} lessons · ${s.units} of ${s.unitTotal} units complete. Progress stays in this browser.</p></div>
     </div>
     ${issues.length ? `<div class="card flag">${esc(issues.join(" "))}</div>` : ""}
     ${units}`;
@@ -83,6 +83,8 @@ function fillLesson() {
   $("courseExplain").textContent = lesson.explain;
   $("courseFingers").textContent = lesson.fingers || "";
   $("courseCredit").textContent = lesson.credit || "";
+  $("courseTips").hidden = !lesson.tips;
+  $("courseTips").innerHTML = lesson.tips ? "<b>Common mistakes</b><ul>" + lesson.tips.map((t) => `<li>${esc(t)}</li>`).join("") + "</ul>" : "";
   const tune = TUNINGS[lesson.tuning];
   $("courseRetune").hidden = !lesson.retune;
   $("courseRetune").textContent = lesson.retune ? `Tuning: ${tune.name} (${tune.label}). ${lesson.retune}` : "";
