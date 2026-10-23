@@ -11,6 +11,7 @@ import * as course from "./course.js";
 import * as tools from "./tools.js";
 import { LESSONS, UNITS } from "./course-data.js";
 import * as trainer from "./trainer.js";
+import { renderChordLibrary } from "./chordpage.js";
 
 const $ = (id) => document.getElementById(id);
 const STRN = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th", 6: "6th" };
@@ -32,11 +33,12 @@ function chrome(view) {
     trainer: ["Fretboard", "Notes on the neck", "Trainer"],
     songs: ["Songs", "Classical · Folk · Rock/Pop", "Songs"],
     technique: ["Learn", "Technique & courses", "Learn"],
+    chords: ["Chord library", "Every chord in the app", "Chords"],
     tools: ["Practice tools", "Tuner · metronome · fretboard", "Tools"],
     tuner: ["Tuner", "Standard tuning · E A D G B E", "Tuner"],
     metronome: ["Metronome", "Keep time", "Metronome"],
   };
-  const row = map[view] || map.hub;
+  const row = view === "course" ? [...course.brandFor(), "Course"] : map[view] || map.hub;
   $("brandTitle").textContent = row[0];
   $("brandSub").textContent = row[1];
   if (!["score", "lh", "rh"].includes(view)) $("whereLabel").textContent = row[2];
@@ -53,7 +55,7 @@ function renderHub() {
   const ts = trainer.stats();
   $("hubTrainer").textContent = ts.correct ? `${ts.correct} right · best streak ${ts.best}${ts.weak ? " · shaky: " + ts.weak : ""}` : "Standard tuning · frets 0–12";
 }
-const SECTION = { hub: "hub", songs: "songs", technique: "technique", course: "technique", tools: "tools", tuner: "tools", metronome: "tools", trainer: "tools" };
+const SECTION = { hub: "hub", songs: "songs", technique: "technique", course: "technique", tools: "tools", tuner: "tools", metronome: "tools", trainer: "tools", chords: "tools" };
 function goto(view) {
   if (!document.querySelector(`.view[data-view="${view}"]`)) view = "hub";
   state.view = view;
@@ -73,6 +75,7 @@ function goto(view) {
   if (view === "course") course.entered();
   if (view === "songs") renderSongs();
   if (view === "technique") renderTech();
+  if (view === "chords") renderChordLibrary($("chordsRoot"));
   if (view !== "tuner") tools.leftTuner();
   if (view !== "metronome") tools.leftMetro();
   if (view === "trainer") trainer.entered();
@@ -107,6 +110,8 @@ function renderTech() {
     <div class="group-h">Fingerpicking course · steel string</div>
     <button class="card hub-card" type="button" data-goto="course"><div class="kicker">${cs.done} of ${cs.total} lessons · ${cs.units}/${cs.unitTotal} units</div><h2>🪕 Fingerpicking course</h2>
       <p>${techUnits.map((u, i) => `${i + 1}. ${escH(u.title)}`).join(" · ")}</p><p class="go">Open the course (units, progress, locks)</p></button>
+    <div class="group-h">Chords</div>
+    <button class="card hub-card" type="button" data-goto="chords"><div class="kicker">Diagrams · fingering · transitions</div><h2>🎼 Chord library</h2><p>Every chord used in the app with a diagram and a short how-to-play lesson.</p></button>
     <div class="group-h">Classical technique (from Lágrima)</div>
     <div class="card"><ul class="song-list">
       <li><div><div class="t">🤚 Left hand</div><div class="meta">Fretboard view per bar, finger tips, shifts, half barre</div></div><button class="btn tiny" type="button" data-goto="lh">Open</button></li>
@@ -355,7 +360,13 @@ goto("hub");
 function routeHash() {
   const h = location.hash;
   const deep = h.match(/^#lesson=([\w-]+)/);
-  if (deep) { goto("course"); course.openLesson(deep[1], { force: true }); return; }
+  if (deep) {
+    // Already on the course screen: open the lesson directly. Re-entering would re-render the old score while
+    // the new one loads, which made alphaTab throw “Cannot read properties of undefined”.
+    if (state.view !== "course") goto("course");
+    course.openLesson(deep[1], { force: true });
+    return;
+  }
   const v = h.match(/^#(?:view=)?([a-z]+)$/);
   if (v && document.querySelector(`.view[data-view="${v[1]}"]`)) goto(v[1]);
 }

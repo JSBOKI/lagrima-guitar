@@ -134,3 +134,15 @@ body.show-course-dock{--dockh:118px}
 .song-list{list-style:none;margin:0;padding:0} .song-list li{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding:10px 0} .song-list li:first-child{border-top:0}
 .song-list .t{font-weight:650} .song-list .meta{font-size:.75rem;color:var(--muted)}
 .update-toast{position:fixed;left:10px;right:10px;top:10px;z-index:50;background:var(--wood);color:#fff;border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.2)} .update-toast button{background:#fff;color:var(--wood);border:0;border-radius:10px;padding:8px 12px;font:inherit;font-weight:700}
+/* Hand guides & chord diagrams */
+.hands{border-top:1px solid var(--line);padding-top:8px;margin-top:8px} .hands:first-child{border-top:0;margin-top:0;padding-top:0}
+.hands summary{cursor:pointer;list-style:none} .hands summary h3{display:inline} .hands summary::-webkit-details-marker{display:none}
+.hands h4{font-size:.95rem;margin:.8rem 0 .3rem}
+.chord-teach{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:start;border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;font-size:.88rem}
+.chord-teach ol,.chord-teach ul{padding-left:1.1rem;margin:.2rem 0 .5rem} .chord-teach li{margin:.15rem 0}
+.chord-fig svg.chordbox{width:150px;height:auto;display:block}
+@media (max-width:480px){.chord-teach{grid-template-columns:1fr}.chord-fig{justify-self:center}}
+.diag-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch} .diag-scroll svg{max-width:none;height:auto;display:block}
+.hand-grid{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr;gap:10px;align-items:center} .hand-grid svg{width:100%;height:auto}
+@media (max-width:480px){.hand-grid{grid-template-columns:1fr}}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0} .chip-row .chip{text-decoration:none;min-height:34px;padding:6px 10px}

@@ -2,6 +2,7 @@ import { LESSONS, UNITS } from "./course-data.js";
 import { lessonTex, validateAll } from "./coursetex.js";
 import { TUNINGS } from "./notes.js";
 import { RH_COLORS } from "./fretboard.js";
+import { handsHTML } from "./handguide.js";
 
 const KEY = "guitar.course.v1";
 const $ = (id) => document.getElementById(id);
@@ -31,11 +32,12 @@ export function stats() {
   return { done, total: LESSONS.length, units, unitTotal: UNITS.length };
 }
 
-const ui = { back: null, forced: null, lessonId: null, api: null, ready: false, playing: false, bpm: 60, loop: true, metro: false, countIn: true };
+const ui = { rendering: false, pendingTex: false, back: null, forced: null, lessonId: null, api: null, ready: false, playing: false, bpm: 60, loop: true, metro: false, countIn: true };
 
 function esc(s) { return String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c])); }
 
 function renderList() {
+  if (document.getElementById("brandTitle") && document.body.querySelector('.view.active[data-view="course"]')) { $("brandTitle").textContent = BRAND.default[0]; $("brandSub").textContent = BRAND.default[1]; }
   const st = load();
   const s = stats();
   const issues = validateAll();
@@ -73,6 +75,14 @@ function applyTransport() {
 }
 function setStatus(t) { $("courseStatus").textContent = t; }
 
+const BRAND = {
+  u10: ["Every Breath You Take", "Rock / Pop · The Police · A♭"],
+  u11: ["Asturias (Leyenda)", "Classical · Albéniz / Segovia · E minor"],
+  u9: ["Fingerpicking", "Folk & Appalachian tunes"],
+  default: ["Fingerpicking", "Folk & Appalachian"],
+};
+export function brandFor() { const l = LESSONS.find((x) => x.id === ui.lessonId); return l ? (BRAND[l.unit] || BRAND.default) : BRAND.default; }
+
 function fillLesson() {
   const lesson = LESSONS.find((l) => l.id === ui.lessonId);
   if (!lesson) return;
@@ -82,6 +92,9 @@ function fillLesson() {
   $("courseTitle").textContent = lesson.title;
   $("courseKicker").textContent = `Unit ${unitIndex(lesson.unit) + 1} · ${unit.title} · ${i + 1} of ${LESSONS.length}`;
   $("courseExplain").textContent = lesson.explain;
+  const brand = BRAND[lesson.unit] || BRAND.default;
+  $("brandTitle").textContent = brand[0]; $("brandSub").textContent = brand[1];
+  try { $("courseHands").innerHTML = handsHTML(lesson); } catch (err) { console.error(err); $("courseHands").innerHTML = ""; }
   $("courseFingers").textContent = lesson.fingers || "";
   $("courseCredit").textContent = lesson.credit || "";
   $("courseTips").hidden = !lesson.tips;
@@ -119,7 +132,11 @@ function ensureApi() {
   ui.api = api;
   api.soundFontLoad.on((e) => { const p = e.total ? Math.round((e.loaded / e.total) * 100) : 0; setStatus(`Loading guitar sound… ${p}%`); });
   api.playerReady.on(() => { ui.ready = true; applyTransport(); setStatus("Ready · count-in, then the lesson. Loop stays on until you turn it off."); });
-  api.renderFinished.on(() => { $("courseLoading").hidden = true; });
+  api.renderFinished.on(() => {
+    ui.rendering = false;
+    if (ui.pendingTex) { ui.pendingTex = false; loadTex(); return; }
+    $("courseLoading").hidden = true;
+  });
   api.playerStateChanged.on((e) => {
     ui.playing = e.state === 1;
     $("coursePlay").textContent = ui.playing ? "❚❚" : "▶";
@@ -133,16 +150,21 @@ function ensureApi() {
 function loadTex() {
   const lesson = LESSONS.find((l) => l.id === ui.lessonId);
   if (!lesson || !ui.api) return;
-  if (ui.playing) ui.api.pause();
   $("courseLoading").hidden = false;
+  // alphaTab breaks (“Cannot read properties of undefined”) if a new score arrives while the previous one is
+  // still rendering / building MIDI — queue it and load when the current render finishes.
+  if (ui.rendering) { ui.pendingTex = true; return; }
+  try { ui.api.stop(); } catch {}
+  ui.rendering = true;
   try { ui.api.tex(lessonTex(lesson)); applyTransport(); }
-  catch (err) { console.error(err); setStatus(err.message); $("courseLoading").hidden = true; }
+  catch (err) { ui.rendering = false; console.error(err); setStatus(err.message); $("courseLoading").hidden = true; }
 }
 
 // opts.force: open even if its unit is still locked (Songs section, deep links). opts.back: view for the back button.
 export function openLesson(id, opts = {}) {
   const lesson = LESSONS.find((l) => l.id === id);
   if (!lesson) return false;
+  if (ui.lessonId === id && !$("courseStage").hidden) { fillLesson(); return true; }
   if (opts.force) ui.forced = id;
   if (!lessonUnlocked(lesson)) return false;
   ui.back = opts.back || null;
@@ -174,7 +196,7 @@ export function entered() {
     $("courseList").hidden = true;
     $("courseStage").hidden = false;
     document.body.classList.add("show-course-dock");
-    if (ui.api) { try { ui.api.render(); } catch {} }
+    if (ui.api && !ui.rendering) { ui.rendering = true; try { ui.api.render(); } catch { ui.rendering = false; } }
   } else renderList();
 }
 export function left() {

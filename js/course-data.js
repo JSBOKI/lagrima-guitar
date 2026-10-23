@@ -32,7 +32,7 @@ export const CHORDS = {
   Gadd9: { tuning: "standard", rootAt: { s: 6, f: 3 }, fifthAt: { s: 4, f: 0 }, tones: [7, 11, 2, 9], shape: { 6: 3, 4: 0, 3: 2, 2: 0 } },
   Emadd9: { tuning: "standard", rootAt: { s: 6, f: 0 }, fifthAt: { s: 5, f: 2 }, tones: [4, 7, 11, 6], shape: { 6: 0, 5: 2, 4: 4, 3: 0 } },
   Cadd9: { tuning: "standard", rootAt: { s: 5, f: 3 }, fifthAt: { s: 6, f: 3 }, tones: [0, 4, 7, 2], shape: { 5: 3, 4: 2, 3: 0, 2: 3 } },
-  Dadd9: { tuning: "standard", rootAt: { s: 4, f: 0 }, fifthAt: { s: 5, f: 0 }, tones: [2, 6, 9, 4], shape: { 4: 0, 3: 2, 2: 3, 1: 0 } },
+  Dadd9: { tuning: "standard", rootAt: { s: 5, f: 5 }, fifthAt: { s: 3, f: 2 }, tones: [2, 6, 9, 4], shape: { 5: 5, 4: 4, 3: 2, 2: 3, 1: 0 } },
 };
 
 export const UNITS = [
@@ -400,7 +400,7 @@ const FM = arp("p6.1:1", "p5.3:3", "i4.5:4", "m3.1:1");
 const DB = arp("p5.4:1", "p4.6:3", "i3.8:4", "m2.6:2");
 const EB = arp("p5.6:1", "p4.8:3", "i3.10:4", "m2.8:2");
 const GB = arp("p6.2:1", "p5.4:3", "i4.6:4", "m3.3:2");
-const FB = arp("p6.0", "p5.2:1", "i4.4:4", "m3.1:2");
+const FB = arp("p6.0", "p5.2:2", "i4.4:4", "m3.1:1");
 const ebytTips = (extra) => [
   "Cutting the stretch short: if the pinky can’t reach the 9th, the riff loses its shimmer. Slide the thumb lower behind the neck and bring the elbow in rather than skipping the note.",
   "Lifting fingers between notes: hold the whole shape for the full bar so every note keeps ringing into the next — the sound is a cloud, not a melody.",
@@ -477,7 +477,7 @@ ${EB}` },
 
   { id: "ebyt-easy", unit: "u10", title: "Beginner option: the same riff in G, open position",
     explain: "If the A♭ stretch isn’t there yet, play the whole song a half step lower in G with open-string shapes — still standard tuning, no capo. Everything rings more easily because open strings do half the work: Gadd9, Em(add9), Cadd9, Dadd9 (I–vi–IV–V). It sounds a semitone below the record, so use it for practice on its own; switch to the A♭ shapes to play along. Same eighth-note feel, same let-ring rule.",
-    fingers: "Gadd9: 3 x 0 2 0 x · Em(add9): 0 2 4 0 x x · Cadd9: x 3 2 0 3 x · Dadd9: x x 0 2 3 0.",
+    fingers: "Gadd9: 3 x 0 2 0 x · Em(add9): 0 2 4 0 x x · Cadd9: x 3 2 0 3 x · Dadd9: x 5 4 2 3 0 (fingers 4 · 3 · 1 · 2 — the open 1st string E is the 9th).",
     tips: ebytTips(["Forgetting this version is a half step low: it won’t line up with the recording — it’s for building the hand pattern."]),
     credit: "Original simplified drill in G. No lyrics.",
     goals: [60, 80, 100, 117], tempo: 60, meter: [4, 4], tuning: "standard", key: "gmajor",
@@ -485,7 +485,7 @@ ${EB}` },
     v1: `p6.3:3@R p4.0@5 i3.2:2@c p4.0@5 m2.0@c p4.0@5 i3.2:2@c p4.0@5 |
 p6.0@R p5.2:2@5 i4.4:4@c p5.2:2@5 m3.0@c p5.2:2@5 i4.4:4@c p5.2:2@5 |
 p5.3:3@R p4.2:2@c i3.0@c p4.2:2@c m2.3:4@c p4.2:2@c i3.0@c p4.2:2@c |
-p4.0@R i3.2:1@c m2.3:3@c i3.2:1@c a1.0@c i3.2:1@c m2.3:3@c i3.2:1@c` },
+p5.5:4@R i3.2:1@c m1.0@c i3.2:1@c p4.4:3@c i3.2:1@c m2.3:2@c i3.2:1@c` },
 );
 
 /* ---------------- Song study: Asturias (Leyenda) — Albéniz, arr. Segovia, E minor ----------------
@@ -551,7 +551,7 @@ ${ped("5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1")} |
 
   { id: "ast-copla", unit: "u11", ...AST_COMMON, title: "Asturias 5: the middle section (copla), simplified",
     explain: "The slow middle section (bar 63 on, Meno mosso) is a singing melody in octaves — thumb on the 4th string, finger on the 1st string, same note an octave apart — answered by a full chord. Bars 1–4: B–A–B, D–B–A, a long B, then a B major chord (barre at fret 2). Bars 5–8: the same melody answered by G major (barre at fret 3). Simplified here: the printed ornament in bar 2 (a quick B–C–B turn) is left out and the chord is plucked plain instead of the 12th-fret harmonic many editions add. Play it slowly and freely: 40 → 52 → 63 bpm.",
-    fingers: "Octaves: 1st string finger 1, 4th string finger 3 (frets 7/9 = B, 5/7 = A, 10/12 = D). B major at II: barre 1 on the 5th string fret 2 and 1st string fret 2, fingers 2 · 3 · 4 on the 4th, 3rd, 2nd string fret 4. G major at III: 6th 3 · 5th 5 · 4th 5 · 3rd 4 · 2nd 3.",
+    fingers: "Octaves: 1st string finger 1, 4th string finger 3 (frets 7/9 = B, 5/7 = A, 10/12 = D). B major at II: barre 1 on the 5th string fret 2 and 1st string fret 2, fingers 2 · 3 · 4 on the 4th, 3rd, 2nd string fret 4. G major at III: barre 1 on strings 6–2 at fret 3, finger 3 on the 5th string fret 5, finger 4 on the 4th string fret 5, finger 2 on the 3rd string fret 4.",
     tips: ["Octaves out of balance: the upper note (1st string, a) sings, the thumb doubles it a little softer.", "Rushing the long notes: count all three beats of bars 3 and 7 — the silence is part of the copla.", "Chords too loud: the chord is the guitar answering the singer — roll it gently from the bass up."],
     goals: [40, 52, 63], tempo: 40,
     v1: `(p4.9:3+a1.7:1)/h (p4.7:3+a1.5:1) (p4.9:3+a1.7:1) |
@@ -561,7 +561,7 @@ ${ped("5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1")} |
 (p4.9:3+a1.7:1)/h (p4.7:3+a1.5:1) (p4.9:3+a1.7:1) |
 (p4.12:3+a1.10:1)/h (p4.9:3+a1.7:1) (p4.7:3+a1.5:1) |
 (p4.9:3+a1.7:1)/hd |
-(p6.3:2+p5.5:3+p4.5:4+i3.4:3+m2.3:1)/hd` },
+(p6.3:1+p5.5:3+p4.5:4+i3.4:2+m2.3:1)/hd` },
 
   { id: "ast-rasgueado", unit: "u11", ...AST_COMMON, title: "Asturias 6: rasgueado chords — B major and the final E minor",
     explain: "Asturias ends on an E minor chord struck with a rasgueado (a fan of fingers flicked out across the strings), and many players also strike the B major chord at the 7th fret in bars 25–36 with a quick rasgueado. Simplified steps: (1) a single downward brush with i, (2) the same chord with a 3-finger flick a–m–i (fingers curled into the palm, then flick out one after another so the chord sounds as a short roll), (3) quarter-note chords in time, (4) the long final chords. The tab shows each strike as a brush; do the flick inside it. Tempo: 50 → 66 → 80.",

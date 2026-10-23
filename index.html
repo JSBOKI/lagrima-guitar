@@ -44,6 +44,7 @@
       <p>Steel-string p-i-m-a, Travis bass on C G Am D E, pinches, Carter style, rolls, slurs, drop D and open G/D, then a set of tunes.</p>
       <p class="go" id="hubCourse">Start unit 1</p>
     </button>
+    <button class="card hub-card" type="button" data-goto="chords"><div class="kicker">Reference</div><h2>🎼 Chord library</h2><p>Every chord in the app: diagram, finger order, common mistakes, transition drills.</p></button>
     <button class="card hub-card" type="button" data-goto="trainer">
       <div class="kicker">Tool · Notes on the neck</div>
       <h2>Fretboard trainer</h2>
@@ -166,6 +167,7 @@
         <div class="small" id="courseTips" hidden></div>
         <p class="small" id="courseVideo" hidden></p>
       </div>
+      <div class="card" id="courseHands"></div>
       <div class="card tight">
         <h3>Practice goals</h3>
         <div class="row gap wrap" id="courseGoals"></div>
@@ -176,6 +178,9 @@
     </div>
   </section>
 
+  <!-- CHORD LIBRARY -->
+  <section class="view" id="view-chords" data-view="chords"><div id="chordsRoot"></div></section>
+
   <!-- SONGS -->
   <section class="view" id="view-songs" data-view="songs"><div id="songsRoot"></div></section>
   <!-- LEARN / TECHNIQUE -->
@@ -184,6 +189,7 @@
   <section class="view" id="view-tools" data-view="tools">
     <button class="card hub-card" type="button" data-goto="tuner"><div class="kicker">Mic</div><h2>🎙️ Tuner</h2><p>Chromatic tuner with a cents needle, auto string detection, reference tones and A4 calibration.</p></button>
     <button class="card hub-card" type="button" data-goto="metronome"><div class="kicker">Time</div><h2>🥁 Metronome</h2><p>Tempo, beats per bar, accent, subdivisions.</p></button>
+    <button class="card hub-card" type="button" data-goto="chords"><div class="kicker">Reference</div><h2>🎼 Chord library</h2><p>Every chord in the app: diagram, finger order, common mistakes, transition drills.</p></button>
     <button class="card hub-card" type="button" data-goto="trainer"><div class="kicker">Notes on the neck</div><h2>🎯 Fretboard trainer</h2><p>Show, find and name notes; octaves; a timer; the ones you keep missing.</p></button>
   </section>
   <section class="view" id="view-tuner" data-view="tuner"><div id="tunerRoot"></div></section>
