@@ -46,6 +46,7 @@ export const UNITS = [
   { id: "u8", title: "Drop D, open G, open D", blurb: "Retune, check the open strings, then a simple alternating bass in each tuning." },
   { id: "u9", title: "Tunes", blurb: "Short original settings of public-domain melodies, plus one original study in place of Freight Train." },
   { id: "u10", open: true, title: "Song study: Every Breath You Take", blurb: "The Police (Sting, 1983). Andy Summers’ ringing add9 arpeggio riff in the original key of A♭, standard tuning, no capo. Open any time — this unit is not locked. Chords, picking and drills only; no lyrics." },
+  { id: "u11", open: true, title: "Song study: Asturias (Leyenda)", blurb: "Isaac Albéniz (piano original in G minor, 1892) in the standard guitar key of E minor after Segovia’s transcription — standard tuning, no capo. The thumb plays the melody while i and m keep the open B string ringing as a pedal. Open any time — this unit is not locked." },
 ];
 
 const Gpat = "p6.3:2@R i3.0@c p4.0@5 m2.0@c p6.3:2@R i3.0@c p4.0@5 m1.3:4@c";
@@ -485,4 +486,90 @@ ${EB}` },
 p6.0@R p5.2:2@5 i4.4:4@c p5.2:2@5 m3.0@c p5.2:2@5 i4.4:4@c p5.2:2@5 |
 p5.3:3@R p4.2:2@c i3.0@c p4.2:2@c m2.3:4@c p4.2:2@c i3.0@c p4.2:2@c |
 p4.0@R i3.2:1@c m2.3:3@c i3.2:1@c a1.0@c i3.2:1@c m2.3:3@c i3.2:1@c` },
+);
+
+/* ---------------- Song study: Asturias (Leyenda) — Albéniz, arr. Segovia, E minor ----------------
+   Bars follow the standard Segovia-based guitar text (piano original in G minor, guitar a minor third
+   lower in E minor so the D pedal becomes the open B string). 3/4, steady sixteenths in the A section. */
+// One A-section bar: thumb melody note, then the open-B pedal, alternating i and m: p i p m p i p m p i p m.
+const ped = (...mel) => mel.map((n, k) => `p${n}/s ${k % 2 ? "m" : "i"}2.0/s`).join(" ");
+const AST = {
+  b1: ped("5.7:1", "4.9:3", "4.10:4", "4.7:1", "4.9:3", "5.10:4"), // E B C A B G
+  b4: ped("4.7:1", "5.9:3", "5.10:4", "4.7:1", "5.9:3", "5.10:4"), // A F# G A F# G
+  b8: ped("4.7:1", "5.9:3", "5.10:4", "5.7:1", "6.10:4", "6.8:2"), // A F# G E D C
+  b9: ped("6.7:1", "4.9:3", "4.10:4", "4.7:1", "4.9:4", "5.9:3"), // B B C A B F#
+  b11: ped("6.7:1", "5.9:3", "4.7:1", "4.9:1", "4.10:2", "4.12:4"), // B F# A B C D
+  b12: ped("4.9:1", "4.10:2", "4.7:1", "4.9:3", "5.10:4", "5.9:1"), // B C A B G F#
+  b15: ped("6.7:1", "4.7:2", "4.9:2", "4.10:3", "4.12:4", "4.9:1"), // B A B C D B
+  b16: ped("4.10:2", "4.7:2", "4.9:4", "4.5:2", "4.7:4", "4.4:1"), // C A B G A F#
+};
+const astTips = (extra) => [
+  "Thumb too loud or too soft: the thumb is the melody, so it leads; the open B from i–m is a soft, even shimmer underneath. Practise the thumb line alone first, then add the pedal quietly.",
+  "Using the same finger twice on the open B: strict i–m alternation. Watch for “i i” at the start of each bar.",
+  "Lifting the left hand early: let every thumb note ring until the next thumb note (the ==== in printed tabs).",
+  "Speeding up before it is even: only move to the next goal tempo after four clean loops in a row with the Click on.",
+  ...(extra || []),
+];
+const ASTV = { url: "https://youtu.be/inBKFMB-yPg", title: "Ana Vidović plays Asturias (Leyenda) — YouTube" };
+const ASTC = "“Asturias (Leyenda)” by Isaac Albéniz (1860–1909), public domain. Guitar text after Segovia’s E-minor transcription.";
+const AST_COMMON = { tuning: "standard", key: "eminor", meter: [3, 4], instrument: "acousticguitarnylon", video: ASTV, credit: ASTC };
+
+LESSONS.push(
+  { id: "ast-intro", unit: "u11", ...AST_COMMON, title: "Asturias 1: the p-i-p-m pedal engine",
+    explain: "Everything in the opening of Asturias comes from one right-hand pattern: the thumb (p) plays the melody, and between every thumb note the index and middle fingers (i, m) pluck the open B string — the pedal note that never changes. Pattern per bar: p i p m p i p m p i p m, twelve even sixteenths in 3/4. Albéniz wrote it for piano in G minor imitating exactly this flamenco guitar texture; on guitar we play it in E minor so the pedal falls on the open 2nd string. No capo. Bar 1: the thumb melody alone (E B C A B G). Bar 2: the open-B pedal alone, i–m alternating, with a rest where the thumb goes. Bar 3: a single thumb note (E, 5th string fret 7) with the pedal — just the engine. Bar 4: bar 1 of the piece, put together.",
+    fingers: "Left hand at the 7th position: 5th string fret 7 = E (finger 1), 4th string frets 7 · 9 · 10 = A · B · C (fingers 1 · 3 · 4), 5th string fret 10 = G (finger 4). Right hand: thumb rest stroke if you can, i–m free stroke on the open B.",
+    tips: astTips(["Thumb catching the open B: the thumb plays strings 4–6 only; keep the hand angled so p sits ahead of the fingers."]),
+    goals: [50, 66, 80, 96], tempo: 50,
+    v1: `p5.7:1 p4.9:3 p4.10:4 p4.7:1 p4.9:3 p5.10:4 |
+r/s i2.0/s r/s m2.0/s r/s i2.0/s r/s m2.0/s r/s i2.0/s r/s m2.0/s |
+${ped("5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1")} |
+${AST.b1}` },
+
+  { id: "ast-theme", unit: "u11", ...AST_COMMON, title: "Asturias 2: opening phrase, bars 1–8",
+    explain: "The first eight bars exactly as played: bars 1–3 repeat the E–B–C–A–B–G figure, bar 4 answers with A–F♯–G A–F♯–G, then bars 5–7 repeat and bar 8 runs down A–F♯–G–E–D–C into the low register. The open B pedal never stops. Tempo plan: 50 → 66 → 80 → 96 bpm (quarter note) with Loop and Click on; concert performances such as Ana Vidović’s sit around 120–140, so 96 clean is already a real achievement. Play each tempo until four loops in a row are clean.",
+    fingers: "Bar 4: 4th string fret 7 (1), 5th string frets 9 · 10 (3 · 4). Bar 8 descends to the 6th string frets 10 · 8 (fingers 4 · 2) — shift with finger 1 as the guide on the 5th string fret 7.",
+    tips: astTips(["Bar 8 shift: prepare finger 4 for the 6th string while the open B rings — the pedal buys you time."]),
+    goals: [50, 66, 80, 96], tempo: 50,
+    v1: [AST.b1, AST.b1, AST.b1, AST.b4, AST.b1, AST.b1, AST.b1, AST.b8].join(" |\n") },
+
+  { id: "ast-theme2", unit: "u11", ...AST_COMMON, title: "Asturias 3: the low-B phrase, bars 9–16",
+    explain: "The second phrase drops the thumb to the low B (6th string fret 7) at the start of each bar and climbs: B–B–C–A–B–F♯, then a rising line B–F♯–A–B–C–D and the cadence C–A–B–G–A–F♯ that lands back on the opening. Same pedal, same tempo ladder. This is where most players lose evenness, because the thumb now jumps strings — keep i–m metronomic and let the thumb fit around them.",
+    fingers: "Bar 11 climbs the 4th string with a shift: frets 7 · 9 (finger 1 twice — slide it), then 10 · 12 (fingers 2 · 4). Bar 16 walks down the 4th string 10 · 7 · 9 · 5 · 7 · 4.",
+    tips: astTips(["String-crossing thumb: from the 6th string to the 4th, move the whole hand slightly, not just the thumb joint."]),
+    goals: [50, 66, 80, 96], tempo: 50,
+    v1: [AST.b9, AST.b9, AST.b11, AST.b12, AST.b9, AST.b9, AST.b15, AST.b16].join(" |\n") },
+
+  { id: "ast-tremolo", unit: "u11", ...AST_COMMON, title: "Asturias 4: tremolo-style repeated notes (i–m speed builder)",
+    explain: "The shimmering, tremolo-like sound of Asturias is the open B repeated fast by i and m. (Segovia’s version has no p-a-m-i tremolo; the effect is this repeated-note pedal, plus the double open-B 16ths in bars 25–36.) Build it in steps: bar 1 eighths i m i m i m, bar 2 sixteenths i m alternating, bar 3 sixteenths with the thumb back on one note (E), bar 4 a preview of the bar-25 texture — a B major chord at the 7th fret, then thumb melody with two pedal notes after each thumb note. The score writes those groups as sixteenth-note triplets (p-i-m); here they are simplified to an eighth plus two sixteenths — once that is even, smooth it into triplets. Start slow, keep the volume low and identical on every B.",
+    fingers: "Bar 4 chord at VII: 7 · 9 · 9 · 8 · 7 · 7 (6th→1st string), then thumb C · A (4th string 10 · 7) with i–m on the open B in between.",
+    tips: astTips(["Tension: the faster you go, the smaller the finger motion — move from the big knuckle, a few millimetres only.", "Accenting i: record yourself; if every other note is louder, practise m–i starting on m."]),
+    goals: [50, 66, 80, 96], tempo: 50,
+    v1: `i2.0 m2.0 i2.0 m2.0 i2.0 m2.0 |
+i2.0/s m2.0/s i2.0/s m2.0/s i2.0/s m2.0/s i2.0/s m2.0/s i2.0/s m2.0/s i2.0/s m2.0/s |
+${ped("5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1", "5.7:1")} |
+(p6.7:1+p5.9:3+p4.9:4+i3.8:2+m2.7:1+a1.7:1)/e i2.0/s m2.0/s p4.10:4/e i2.0/s m2.0/s p4.7:1/e i2.0/s m2.0/s` },
+
+  { id: "ast-copla", unit: "u11", ...AST_COMMON, title: "Asturias 5: the middle section (copla), simplified",
+    explain: "The slow middle section (bar 63 on, Meno mosso) is a singing melody in octaves — thumb on the 4th string, finger on the 1st string, same note an octave apart — answered by a full chord. Bars 1–4: B–A–B, D–B–A, a long B, then a B major chord (barre at fret 2). Bars 5–8: the same melody answered by G major (barre at fret 3). Simplified here: the printed ornament in bar 2 (a quick B–C–B turn) is left out and the chord is plucked plain instead of the 12th-fret harmonic many editions add. Play it slowly and freely: 40 → 52 → 63 bpm.",
+    fingers: "Octaves: 1st string finger 1, 4th string finger 3 (frets 7/9 = B, 5/7 = A, 10/12 = D). B major at II: barre 1 on the 5th string fret 2 and 1st string fret 2, fingers 2 · 3 · 4 on the 4th, 3rd, 2nd string fret 4. G major at III: 6th 3 · 5th 5 · 4th 5 · 3rd 4 · 2nd 3.",
+    tips: ["Octaves out of balance: the upper note (1st string, a) sings, the thumb doubles it a little softer.", "Rushing the long notes: count all three beats of bars 3 and 7 — the silence is part of the copla.", "Chords too loud: the chord is the guitar answering the singer — roll it gently from the bass up."],
+    goals: [40, 52, 63], tempo: 40,
+    v1: `(p4.9:3+a1.7:1)/h (p4.7:3+a1.5:1) (p4.9:3+a1.7:1) |
+(p4.12:3+a1.10:1)/h (p4.9:3+a1.7:1) (p4.7:3+a1.5:1) |
+(p4.9:3+a1.7:1)/hd |
+(p5.2:1+p4.4:2+i3.4:3+m2.4:4+a1.2:1)/hd |
+(p4.9:3+a1.7:1)/h (p4.7:3+a1.5:1) (p4.9:3+a1.7:1) |
+(p4.12:3+a1.10:1)/h (p4.9:3+a1.7:1) (p4.7:3+a1.5:1) |
+(p4.9:3+a1.7:1)/hd |
+(p6.3:2+p5.5:3+p4.5:4+i3.4:3+m2.3:1)/hd` },
+
+  { id: "ast-rasgueado", unit: "u11", ...AST_COMMON, title: "Asturias 6: rasgueado chords — B major and the final E minor",
+    explain: "Asturias ends on an E minor chord struck with a rasgueado (a fan of fingers flicked out across the strings), and many players also strike the B major chord at the 7th fret in bars 25–36 with a quick rasgueado. Simplified steps: (1) a single downward brush with i, (2) the same chord with a 3-finger flick a–m–i (fingers curled into the palm, then flick out one after another so the chord sounds as a short roll), (3) quarter-note chords in time, (4) the long final chords. The tab shows each strike as a brush; do the flick inside it. Tempo: 50 → 66 → 80.",
+    fingers: "E minor: 0 · 2 · 2 · 0 · 0 · 0 (fingers 2 · 3 on the 5th and 4th string). B major at VII: 7 · 9 · 9 · 8 · 7 · 7 — barre 1, finger 2 on the 3rd string, 3 · 4 on the 5th and 4th.",
+    tips: ["Flicking from the wrist: the wrist stays still; only the fingers open.", "All fingers landing together: you want a quick ripple (a-m-i), not a single thump.", "Missing the bass: aim the first finger at the 6th string — the root E or B must speak."],
+    goals: [50, 66, 80], tempo: 50,
+    v1: `(i6.0+i5.2:2+i4.2:3+i3.0+i2.0+i1.0)~/q (i6.0+i5.2:2+i4.2:3+i3.0+i2.0+i1.0)~/q (i6.0+i5.2:2+i4.2:3+i3.0+i2.0+i1.0)~/q |
+(i6.7:1+i5.9:3+i4.9:4+i3.8:2+i2.7:1+i1.7:1)~/q (i6.7:1+i5.9:3+i4.9:4+i3.8:2+i2.7:1+i1.7:1)~/q (i6.7:1+i5.9:3+i4.9:4+i3.8:2+i2.7:1+i1.7:1)~/q |
+(i6.7:1+i5.9:3+i4.9:4+i3.8:2+i2.7:1+i1.7:1)~/hd |
+(i6.0+i5.2:2+i4.2:3+i3.0+i2.0+i1.0)~/hd` },
 );

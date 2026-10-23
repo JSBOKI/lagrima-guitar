@@ -86,6 +86,7 @@ document.addEventListener("click", (e) => { const g = e.target.closest("[data-go
 // Genre for every song-like course lesson. Unit 9 tunes are folk; Unit 10 is a rock/pop song study.
 const SONG_GROUPS = [
   { id: "classical", title: "Classical", items: [{ kind: "lagrima" }] },
+  { id: "classical2", title: "", song: "Asturias (Leyenda)", sub: "Albéniz · Segovia’s guitar version in E minor · no capo", items: LESSONS.filter((l) => l.unit === "u11").map((l) => ({ kind: "lesson", id: l.id })) },
   { id: "folk", title: "Folk & Appalachian", items: LESSONS.filter((l) => l.unit === "u9").map((l) => ({ kind: "lesson", id: l.id })) },
   { id: "rock", title: "Rock / Pop", song: "Every Breath You Take", sub: "The Police · Sting · A♭ · ~117 bpm", items: LESSONS.filter((l) => l.unit === "u10").map((l) => ({ kind: "lesson", id: l.id })) },
 ];
@@ -93,7 +94,7 @@ const escH = (t) => String(t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&l
 function renderSongs() {
   const pct = plan.progressPct(plan.load());
   $("songsRoot").innerHTML = `<div class="card hero"><div><h2>Songs</h2><p class="muted">The pieces you’re learning, by genre. Technique units and drills live under <a href="#" data-goto="technique">Learn</a>.</p></div></div>` +
-    SONG_GROUPS.map((g) => `<div class="group-h">${escH(g.title)}</div><div class="card">${g.song ? `<h3>${escH(g.song)}</h3><p class="small muted">${escH(g.sub)} · ${g.items.length} lessons</p>` : ""}<ul class="song-list">${g.items.map((it) => {
+    SONG_GROUPS.map((g) => `${g.title ? `<div class="group-h">${escH(g.title)}</div>` : ""}<div class="card">${g.song ? `<h3>${escH(g.song)}</h3><p class="small muted">${escH(g.sub)} · ${g.items.length} lessons</p>` : ""}<ul class="song-list">${g.items.map((it) => {
       if (it.kind === "lagrima") return `<li><div><div class="t">Lágrima — Tárrega</div><div class="meta">Score · left hand · right hand · daily plan · ${pct}% learned</div></div><button class="btn tiny" type="button" data-goto="home">Open</button></li>`;
       const l = LESSONS.find((x) => x.id === it.id), st = course.lessonState(it.id);
       return `<li><div><div class="t">${escH(l.title)}</div><div class="meta">${st.done ? "✓ complete" : st.unlocked ? "ready" : "course unit not finished yet — open anyway"} · ${l.goals[0]}→${l.goals[l.goals.length - 1]} bpm</div></div><button class="btn tiny" type="button" data-song="${l.id}">Open</button></li>`;
@@ -101,7 +102,7 @@ function renderSongs() {
 }
 function renderTech() {
   const cs = course.stats();
-  const techUnits = UNITS.filter((u) => u.id !== "u9" && u.id !== "u10");
+  const techUnits = UNITS.filter((u) => !["u9", "u10", "u11"].includes(u.id));
   $("techRoot").innerHTML = `<div class="card hero"><div><h2>Learn</h2><p class="muted">Technique, courses and exercises. Songs are in <a href="#" data-goto="songs">Songs</a>; tuner, metronome and the fretboard trainer are in <a href="#" data-goto="tools">Tools</a>.</p></div></div>
     <div class="group-h">Fingerpicking course · steel string</div>
     <button class="card hub-card" type="button" data-goto="course"><div class="kicker">${cs.done} of ${cs.total} lessons · ${cs.units}/${cs.unitTotal} units</div><h2>🪕 Fingerpicking course</h2>
@@ -113,7 +114,7 @@ function renderTech() {
       <li><div><div class="t">📚 Sources &amp; videos</div><div class="meta">Background, editions and recommended lessons</div></div><button class="btn tiny" type="button" data-goto="learn">Open</button></li>
     </ul></div>
     <div class="group-h">Song-specific drills</div>
-    <div class="card"><p class="small">The “Every Breath You Take” add9 stretch and arpeggio drills are with the song under <a href="#" data-goto="songs">Songs › Rock / Pop</a>.</p></div>`;
+    <div class="card"><p class="small">The “Every Breath You Take” add9 stretch and arpeggio drills are with the song under <a href="#" data-goto="songs">Songs › Rock / Pop</a>; the Asturias pedal, tremolo-style and rasgueado drills are under Songs › Classical.</p></div>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest("[data-song]"); if (b) { goto("course"); course.openLesson(b.dataset.song, { force: true, back: "songs" }); } });
 window.addEventListener("guitar-goto", (e) => goto(e.detail));

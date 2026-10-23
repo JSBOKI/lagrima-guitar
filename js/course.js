@@ -58,7 +58,7 @@ function renderList() {
   }).join("");
   $("courseList").innerHTML = `<div class="card hero">
       <div class="ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" style="stroke-dashoffset:${119.4 * (1 - s.done / s.total)}"/></svg><span>${Math.round(100 * s.done / s.total)}%</span></div>
-      <div><h2>Fingerpicking course</h2><p class="muted">${s.done} of ${s.total} lessons · ${s.units} of ${s.unitTotal} units complete. Progress stays in this browser.</p><p class="small muted">The tunes (Unit 9) and the song study (Unit 10) are also listed under <a href="#" data-goto="songs">Songs</a>.</p></div>
+      <div><h2>Fingerpicking course</h2><p class="muted">${s.done} of ${s.total} lessons · ${s.units} of ${s.unitTotal} units complete. Progress stays in this browser.</p><p class="small muted">The tunes (Unit 9) and the song studies (Units 10–11) are also listed under <a href="#" data-goto="songs">Songs</a>.</p></div>
     </div>
     ${issues.length ? `<div class="card flag">${esc(issues.join(" "))}</div>` : ""}
     ${units}`;
@@ -86,6 +86,8 @@ function fillLesson() {
   $("courseCredit").textContent = lesson.credit || "";
   $("courseTips").hidden = !lesson.tips;
   $("courseTips").innerHTML = lesson.tips ? "<b>Common mistakes</b><ul>" + lesson.tips.map((t) => `<li>${esc(t)}</li>`).join("") + "</ul>" : "";
+  $("courseVideo").hidden = !lesson.video;
+  $("courseVideo").innerHTML = lesson.video ? `▶ Reference performance: <a href="${esc(lesson.video.url)}" target="_blank" rel="noopener">${esc(lesson.video.title)}</a>` : "";
   const tune = TUNINGS[lesson.tuning];
   $("courseRetune").hidden = !lesson.retune;
   $("courseRetune").textContent = lesson.retune ? `Tuning: ${tune.name} (${tune.label}). ${lesson.retune}` : "";

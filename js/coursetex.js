@@ -1,15 +1,15 @@
 // Parse the lesson shorthand and build alphaTex for the same alphaTab engine Lágrima uses.
 // Token: [p|i|m|a|x]{string}.{fret}[:leftFinger][@role][h][/duration][~]
-//   duration: e eighth (default), q quarter, qd dotted quarter, h half, hd dotted half, w whole
+//   duration: s sixteenth, e eighth (default), q quarter, qd dotted quarter, h half, hd dotted half, w whole
 //   ~ = brush down. (a+b)/q = chord. r/q = rest. h = hammer-on or pull-off slur starts here.
 //   roles: R exact root, 5 exact fifth, c chord tone, m melody (may be a non-chord tone)
 
 import { TUNINGS, midiOf, pcOf, spell } from "./notes.js";
 import { CHORDS, LESSONS } from "./course-data.js";
 
-const DUR = { e: 1, q: 2, qd: 3, h: 4, hd: 6, w: 8 };
+const DUR = { s: 0.5, e: 1, q: 2, qd: 3, h: 4, hd: 6, w: 8 };
 const RF = { p: 1, i: 2, m: 3, a: 4 };
-const BASE = { 1: ["8", ""], 2: ["4", ""], 3: ["4", "d"], 4: ["2", ""], 6: ["2", "d"], 8: ["1", ""] };
+const BASE = { 0.5: ["16", ""], 1: ["8", ""], 2: ["4", ""], 3: ["4", "d"], 4: ["2", ""], 6: ["2", "d"], 8: ["1", ""] };
 
 export function eighthsInBar(meter) {
   return meter[0] * 8 / meter[1];
@@ -108,7 +108,7 @@ export function lessonTex(lesson) {
     `\\tempo 60`,
     `\\track "Guitar"`,
     `\\staff {score tabs}`,
-    `\\instrument acousticguitarsteel`,
+    `\\instrument ${lesson.instrument || "acousticguitarsteel"}`,
     `\\tuning (${tuning.alpha})`,
     "",
   ].join("\n");
