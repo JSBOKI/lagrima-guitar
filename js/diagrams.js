@@ -24,7 +24,7 @@ export function chordBoxSVG(id, opts = {}) {
   for (let r = 0; r <= rows; r++) o.push(`<line x1="${left}" x2="${left + 5 * gx}" y1="${top + r * gy}" y2="${top + r * gy}" stroke="#9a8b7c" stroke-width="${r === 0 ? 1.5 : 1}"/>`);
   for (let s = 1; s <= 6; s++) o.push(`<line x1="${x(s)}" x2="${x(s)}" y1="${top}" y2="${top + rows * gy}" stroke="#6b5a4b" stroke-width="${0.8 + (s - 1) * 0.25}"/>`);
   for (let r = 0; r < rows; r++) o.push(`<text x="${left + 5 * gx + 8}" y="${top + (r + 0.5) * gy + 4}" font-size="10" fill="#7a6d62">${base + r}</text>`);
-  if (base > 1) o.push(`<text x="${left - 6}" y="${top + 0.5 * gy + 4}" font-size="11" font-weight="700" text-anchor="end" fill="#2a211b">${base}fr</text>`);
+  if (base > 1) o.push(`<text x="${left - 12}" y="${top + 0.5 * gy + 4}" font-size="10" font-weight="700" text-anchor="end" fill="#2a211b">${base}fr</text>`);
   if (ch.barre) {
     const b = ch.barre, x1 = x(b.from), x2 = x(b.to);
     o.push(`<rect x="${Math.min(x1, x2) - 9}" y="${y(b.fret) - 9}" width="${Math.abs(x2 - x1) + 18}" height="18" rx="9" fill="${LH_COLORS[1]}" opacity="${b.partial ? 0.55 : 0.85}"/>`);
