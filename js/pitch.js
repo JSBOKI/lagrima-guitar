@@ -3,6 +3,11 @@ export const STRINGS = [
   { s: 6, name: "E2", midi: 40 }, { s: 5, name: "A2", midi: 45 }, { s: 4, name: "D3", midi: 50 },
   { s: 3, name: "G3", midi: 55 }, { s: 2, name: "B3", midi: 59 }, { s: 1, name: "E4", midi: 64 },
 ];
+// Guitarlele: a guitar tuned up a 4th (like capo 5). Low to high A2 D3 G3 C4 E4 A4.
+export const GUITARLELE = [
+  { s: 6, name: "A2", midi: 45 }, { s: 5, name: "D3", midi: 50 }, { s: 4, name: "G3", midi: 55 },
+  { s: 3, name: "C4", midi: 60 }, { s: 2, name: "E4", midi: 64 }, { s: 1, name: "A4", midi: 69 },
+];
 const NAMES = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
 export function midiToFreq(m, a4 = 440) { return a4 * Math.pow(2, (m - 69) / 12); }
 export function freqToMidi(f, a4 = 440) { return 69 + 12 * Math.log2(f / a4); }
@@ -10,10 +15,10 @@ export function noteInfo(freq, a4 = 440) {
   const m = freqToMidi(freq, a4), n = Math.round(m);
   return { midi: n, name: NAMES[((n % 12) + 12) % 12], octave: Math.floor(n / 12) - 1, cents: (m - n) * 100 };
 }
-export function nearestString(freq, a4 = 440) {
+export function nearestString(freq, a4 = 440, strings = STRINGS) {
   const m = freqToMidi(freq, a4);
-  let best = STRINGS[0];
-  for (const s of STRINGS) if (Math.abs(s.midi - m) < Math.abs(best.midi - m)) best = s;
+  let best = strings[0];
+  for (const s of strings) if (Math.abs(s.midi - m) < Math.abs(best.midi - m)) best = s;
   return { ...best, cents: (m - best.midi) * 100 };
 }
 /** YIN pitch detector. Returns { freq, clarity } or null for silence/noise. */

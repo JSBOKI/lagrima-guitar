@@ -12,6 +12,7 @@ import * as tools from "./tools.js";
 import { LESSONS, UNITS } from "./course-data.js";
 import * as trainer from "./trainer.js";
 import { renderChordLibrary } from "./chordpage.js";
+import * as lele from "./guitarlele.js";
 
 const $ = (id) => document.getElementById(id);
 const STRN = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th", 6: "6th" };
@@ -37,6 +38,7 @@ function chrome(view) {
     tools: ["Practice tools", "Tuner · metronome · fretboard", "Tools"],
     tuner: ["Tuner", "Standard tuning · E A D G B E", "Tuner"],
     metronome: ["Metronome", "Keep time", "Metronome"],
+    guitarlele: ["Guitarlele tuner", "A D G C E A · like guitar capo 5", "Guitarlele"],
   };
   const row = view === "course" ? [...course.brandFor(), "Course"] : map[view] || map.hub;
   $("brandTitle").textContent = row[0];
@@ -55,7 +57,7 @@ function renderHub() {
   const ts = trainer.stats();
   $("hubTrainer").textContent = ts.correct ? `${ts.correct} right · best streak ${ts.best}${ts.weak ? " · shaky: " + ts.weak : ""}` : "Standard tuning · frets 0–12";
 }
-const SECTION = { hub: "hub", songs: "songs", technique: "technique", course: "technique", tools: "tools", tuner: "tools", metronome: "tools", trainer: "tools", chords: "tools" };
+const SECTION = { hub: "hub", songs: "songs", technique: "technique", course: "technique", tools: "tools", tuner: "tools", guitarlele: "tools", metronome: "tools", trainer: "tools", chords: "tools" };
 function goto(view) {
   if (!document.querySelector(`.view[data-view="${view}"]`)) view = "hub";
   state.view = view;
@@ -77,6 +79,7 @@ function goto(view) {
   if (view === "technique") renderTech();
   if (view === "chords") renderChordLibrary($("chordsRoot"));
   if (view !== "tuner") tools.leftTuner();
+  if (view !== "guitarlele") lele.leftGuitarlele();
   if (view !== "metronome") tools.leftMetro();
   if (view === "trainer") trainer.entered();
   else trainer.left();
@@ -355,6 +358,7 @@ course.initCourse();
 trainer.initTrainer();
 window.addEventListener("guitar-progress", () => { if (state.view === "hub") renderHub(); });
 tools.initTools();
+lele.initGuitarlele();
 goto("hub");
 // Deep links: #lesson=<id> opens a course lesson; #view=<name> (or #tuner, #songs …) opens a screen.
 function routeHash() {
@@ -380,7 +384,7 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
   let reloaded = false;
   navigator.serviceWorker.addEventListener("controllerchange", () => {
     if (!hadController || reloaded) return;
-    const busy = state.playing || document.body.classList.contains("show-course-dock") || state.view === "tuner" || state.view === "metronome";
+    const busy = state.playing || document.body.classList.contains("show-course-dock") || state.view === "tuner" || state.view === "guitarlele" || state.view === "metronome";
     if (!busy) { reloaded = true; location.reload(); return; }
     if (document.getElementById("updateToast")) return;
     const t = document.createElement("div");

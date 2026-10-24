@@ -146,3 +146,22 @@ body.show-course-dock{--dockh:118px}
 .hand-grid{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr;gap:10px;align-items:center} .hand-grid svg{width:100%;height:auto}
 @media (max-width:480px){.hand-grid{grid-template-columns:1fr}}
 .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0} .chip-row .chip{text-decoration:none;min-height:34px;padding:6px 10px}
+/* Guitarlele tuner: large type and big tap targets */
+.lele{font-size:1.15rem} .lele h2{font-size:1.7rem} .lele h3{font-size:1.35rem}
+.lele-lead{font-size:1.25rem;margin:6px 0 14px}
+.lele-big{width:100%;min-height:68px;font-size:1.4rem}
+.lele-msg{font-size:1.1rem}
+.lele-string{font-size:1.5rem;font-weight:700;color:var(--muted)}
+.lele-note{font-size:6rem} .lele-note small{font-size:2rem}
+.lele-note[data-state="ok"]{color:#16a34a} .lele-note[data-state="low"]{color:#2563eb} .lele-note[data-state="high"]{color:#dc2626}
+.lele-meter{height:96px} .lele-meter .needle{height:90px;width:6px;margin-left:-3px} .lele-meter .tick i{font-size:.95rem}
+.lele-verdict{margin:26px 0 8px;font-size:1.8rem;font-weight:800;min-height:1.4em;border-radius:14px;padding:8px}
+.lele-verdict.ok{background:#dcfce7;color:#15803d} .lele-verdict.low{background:#dbeafe;color:#1d4ed8} .lele-verdict.high{background:#fee2e2;color:#b91c1c}
+.lele-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:10px 0}
+.lele-tone{appearance:none;border:2px solid var(--line);background:#fff;border-radius:16px;padding:12px 8px;min-height:110px;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.lele-tone b{font-size:2.6rem;line-height:1.1} .lele-tone .n{font-size:1rem;color:var(--muted)}
+.lele-tone[aria-pressed="true"]{background:var(--wood);color:#fff;border-color:var(--wood)} .lele-tone[aria-pressed="true"] .n{color:#fff}
+.lele-tone.near{border-color:#16a34a;box-shadow:0 0 0 3px #86efac}
+.lele-cal{align-items:center;font-size:1.3rem;margin-top:8px} .lele-step{min-width:56px;min-height:56px;font-size:1.6rem}
+.lele-cal .chip{min-height:56px;font-size:1.05rem}
+.lele-help li{margin:6px 0;line-height:1.5} .lele-help p{line-height:1.55}
