@@ -1,5 +1,6 @@
 import { LH_COLORS, RH_COLORS } from "./fretboard.js";
 import { BEAT_LABEL } from "./events.js";
+import { strLetters } from "./instrument.js";
 
 /** Tab strip for one bar. mode "lh" colours by left finger, "rh" by right finger. */
 export function tabstripSVG(M, curSlot, mode, events) {
@@ -18,7 +19,7 @@ export function tabstripSVG(M, curSlot, mode, events) {
   }
   for (let s = 1; s <= 6; s++) {
     o.push(`<line x1="${left}" x2="${W - 8}" y1="${y(s)}" y2="${y(s)}" stroke="#cbbfb2" stroke-width="1"/>`);
-    o.push(`<text x="${left - 6}" y="${y(s) + 4}" font-size="10" fill="#7a6d62" text-anchor="end">${"eBGDAE"[s - 1]}</text>`);
+    o.push(`<text x="${left - 6}" y="${y(s) + 4}" font-size="10" fill="#7a6d62" text-anchor="end">${strLetters()[s - 1]}</text>`);
   }
   for (const t of M.notes) {
     const [slot, v, s, f, lf, rf, d, ex = {}] = t;

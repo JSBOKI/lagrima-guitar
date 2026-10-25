@@ -2,6 +2,7 @@
 import { CHORD_LIB, chordsOf } from "./chordlib.js";
 import { chordTeachHTML } from "./handguide.js";
 import { LESSONS, UNITS } from "./course-data.js";
+import "./instrument.js"; // registers the guitarlele chord entries
 
 const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 const GROUPS = [
@@ -10,6 +11,9 @@ const GROUPS = [
   { title: "Every Breath You Take — add9 grips (A♭, no capo)", ids: ["Abadd9", "Fmadd9", "Dbadd9", "Ebadd9", "Gbadd9", "Fbadd9"] },
   { title: "Every Breath You Take — beginner open add9 shapes (G)", ids: ["Gadd9", "Emadd9", "Cadd9", "Dadd9"] },
   { title: "Asturias — barre chords", ids: ["BVII", "BII", "GIII"] },
+  { title: "Guitarlele (A D G C E A) · Every Breath You Take — match original key (A♭)", ids: ["Abadd9", "Fmadd9", "Dbadd9", "Ebadd9", "Gbadd9", "Fbadd9"].map((i) => "glk_" + i) },
+  { title: "Guitarlele · Every Breath You Take beginner (G) — match key", ids: ["Gadd9", "Emadd9", "Cadd9", "Dadd9"].map((i) => "glk_" + i) },
+  { title: "Guitarlele · guitar shapes as-is (sound a 4th higher)", ids: ["Abadd9", "Fmadd9", "Dbadd9", "Ebadd9", "Gbadd9", "Fbadd9", "Gadd9", "Emadd9", "Cadd9", "Dadd9"].map((i) => "gls_" + i) },
 ];
 export function usedIn(id) { return LESSONS.filter((l) => chordsOf(l).includes(id)); }
 export function renderChordLibrary(root) {

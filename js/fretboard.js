@@ -1,7 +1,8 @@
 import { ROMAN } from "./events.js";
+import { strLetters } from "./instrument.js";
 export const LH_COLORS = { 0: "#6b7280", 1: "#2563eb", 2: "#16a34a", 3: "#ea580c", 4: "#dc2626" };
 export const RH_COLORS = { p: "#7c3aed", i: "#0891b2", m: "#db2777", a: "#b45309" };
-const STR_LABEL = { 1: "1 e", 2: "2 B", 3: "3 G", 4: "4 D", 5: "5 A", 6: "6 E" };
+
 
 /** Horizontal fretboard, frets 0..12. flip=false: player’s view (6th string on top). flip=true: tab view (1st on top). */
 export function fretboardSVG(ev, mot, flip) {
@@ -24,7 +25,7 @@ export function fretboardSVG(ev, mot, flip) {
   for (let s = 1; s <= 6; s++) {
     const w = 0.8 + (s - 1) * 0.42;
     o.push(`<line x1="${nut - 2}" x2="${W - 8}" y1="${y(s)}" y2="${y(s)}" stroke="${s >= 4 ? "#d6b48a" : "#eeeeee"}" stroke-width="${w}"/>`);
-    o.push(`<text x="4" y="${y(s) + 4}" font-size="11" font-weight="${used.has(s) ? 700 : 400}" fill="${used.has(s) ? "#2a211b" : "#a89a8c"}">${STR_LABEL[s]}</text>`);
+    o.push(`<text x="4" y="${y(s) + 4}" font-size="11" font-weight="${used.has(s) ? 700 : 400}" fill="${used.has(s) ? "#2a211b" : "#a89a8c"}">${s} ${strLetters()[s - 1]}</text>`);
   }
   for (let f = 1; f <= frets; f++) o.push(`<text x="${x(f)}" y="${H - 8}" font-size="10" fill="#7a6d62" text-anchor="middle">${f}</text>`);
   if (!ev) { o.push("</svg>"); return o.join(""); }

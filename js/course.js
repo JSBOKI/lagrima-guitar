@@ -1,3 +1,4 @@
+import * as inst from "./instrument.js";
 import { LESSONS, UNITS } from "./course-data.js";
 import { lessonTex, validateAll } from "./coursetex.js";
 import { TUNINGS } from "./notes.js";
@@ -86,6 +87,8 @@ export function brandFor() { const l = LESSONS.find((x) => x.id === ui.lessonId)
 function fillLesson() {
   const lesson = LESSONS.find((l) => l.id === ui.lessonId);
   if (!lesson) return;
+  inst.setCurrentLesson(lesson.id);
+  $("courseInst").innerHTML = inst.panelHTML(inst.songOfLesson(lesson));
   const st = load();
   const i = LESSONS.findIndex((l) => l.id === lesson.id);
   const unit = UNITS.find((u) => u.id === lesson.unit);

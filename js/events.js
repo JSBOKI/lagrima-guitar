@@ -1,6 +1,6 @@
 import { MEASURES } from "./data.js";
+import { lagOpen } from "./instrument.js";
 
-const OPEN = { 1: 64, 2: 59, 3: 55, 4: 50, 5: 45, 6: 40 };
 const NAMES = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
 export const ROMAN = ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"];
 export const RH_NAME = { p: "thumb (p)", i: "index (i)", m: "middle (m)", a: "ring (a)" };
@@ -8,7 +8,7 @@ export const BEAT_LABEL = ["1", "&", "2", "&", "3", "&"];
 
 export function noteObj(t, M) {
   const [slot, v, s, f, lf, rf, d, ex = {}] = t;
-  const midi = OPEN[s] + f;
+  const midi = lagOpen()[s] + f;
   return { slot, v, s, f, lf, rf, d, ex, midi, name: NAMES[midi % 12] + (Math.floor(midi / 12) - 1), n: M.n };
 }
 

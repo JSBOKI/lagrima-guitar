@@ -165,3 +165,20 @@ body.show-course-dock{--dockh:118px}
 .lele-cal{align-items:center;font-size:1.3rem;margin-top:8px} .lele-step{min-width:56px;min-height:56px;font-size:1.6rem}
 .lele-cal .chip{min-height:56px;font-size:1.05rem}
 .lele-help li{margin:6px 0;line-height:1.5} .lele-help p{line-height:1.55}
+/* Instrument toggle (Guitar | Guitarlele) */
+.topbar{flex-wrap:wrap;gap:6px}
+.inst-head{flex-basis:100%;display:flex;justify-content:center}
+.inst-toggle{display:inline-flex;border-radius:14px;overflow:hidden;border:2px solid #fff;background:rgba(255,255,255,.12)}
+.inst-toggle button{font-size:1.15rem;font-weight:800;min-height:52px;min-width:140px;padding:8px 14px;border:0;background:transparent;color:inherit;cursor:pointer}
+.inst-toggle button.on{background:#fff;color:#7a3e1d}
+.inst-panel{background:#fff7ec;border:2px solid #e0b98f;border-radius:14px;padding:12px;margin:10px 0;font-size:1.1rem}
+.inst-panel .inst-toggle{border-color:#7a3e1d;color:#7a3e1d}
+.inst-panel .inst-toggle button.on{background:#7a3e1d;color:#fff}
+.inst-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.inst-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.inst-modes button{font-size:1.05rem;font-weight:800;min-height:64px;border-radius:12px;border:2px solid #7a3e1d;background:#fff;color:#7a3e1d;cursor:pointer}
+.inst-modes button.on{background:#7a3e1d;color:#fff}
+.inst-modes small{font-weight:500}
+.inst-note{font-size:1.02rem;margin:8px 0}
+.inst-note.warn{color:#8a4b00;font-weight:600}
+.btn.big{font-size:1.15rem;min-height:52px;display:inline-flex;align-items:center}

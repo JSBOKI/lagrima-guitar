@@ -1,3 +1,4 @@
+import * as inst from "./instrument.js";
 import { MEASURES, PIECE } from "./data.js";
 import { buildTex } from "./texgen.js";
 import { buildEvents, motion, measure, ROMAN, RH_NAME, BEAT_LABEL } from "./events.js";
@@ -25,7 +26,7 @@ const LAGRIMA = new Set(["home", "score", "lh", "rh", "learn"]);
 function chrome(view) {
   const map = {
     hub: ["Guitar Coach", "Lágrima · fingerpicking · notes", "Home"],
-    home: ["Lágrima", "Tárrega · Preludio", "Plan"],
+    home: ["Lágrima", inst.isLele() ? "Tárrega · on guitarlele" : "Tárrega · Preludio", "Plan"],
     score: ["Lágrima", "Tárrega · Preludio", "Score"],
     lh: ["Lágrima", "Tárrega · Preludio", "Left hand"],
     rh: ["Lágrima", "Tárrega · Preludio", "Right hand"],
@@ -285,6 +286,7 @@ function renderCurrent() {
   $("tabstripRH").innerHTML = tabstripSVG(M, ev.slot, "rh", state.events);
   $("rhLegend").innerHTML = Object.entries(RH_COLORS).map(([k, c]) => `<span><i style="background:${c}"></i>${k} = ${RH_NAME[k]}</span>`).join("") + `<span><span class="rs">R</span> rest stroke suggested</span>`;
   $("rhTip").textContent = M.rh + " (Right-hand fingering is suggested – the original edition prints none.)";
+  if (inst.isLele()) $("boardCaption").textContent = (state.flip ? "Tab view: 1st string (thin, high A) on top. " : "Player’s view: 6th string (thick, low A) on top, 1st string (thin, high A) at the bottom. ") + "Guitarlele strings: 6 A · 5 D · 4 G · 3 C · 2 E · 1 A — " + inst.lagKeyLabel() + ".";
 }
 
 /* ---------------- Home / practice plan ---------------- */
@@ -359,6 +361,9 @@ trainer.initTrainer();
 window.addEventListener("guitar-progress", () => { if (state.view === "hub") renderHub(); });
 tools.initTools();
 lele.initGuitarlele();
+inst.initInstrumentUI();
+$("instHeader").innerHTML = inst.toggleHTML();
+for (const v of ["home", "score", "lh", "rh"]) { const sec = document.getElementById("view-" + v); const d = document.createElement("div"); d.className = "inst-host"; d.innerHTML = inst.panelHTML("lagrima"); sec.insertBefore(d, sec.firstChild); }
 goto("hub");
 // Deep links: #lesson=<id> opens a course lesson; #view=<name> (or #tuner, #songs …) opens a screen.
 function routeHash() {

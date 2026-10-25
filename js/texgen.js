@@ -1,3 +1,4 @@
+import { isLele, lagKeyName } from "./instrument.js";
 // Build alphaTex (alphaTab text notation) from the measure data.
 const DUR = { 1: ".8", 2: ".4", 3: ".4{d}", 4: ".2", 6: ".2{d}" };
 const RF = { p: 1, i: 2, m: 3, a: 4 };
@@ -53,14 +54,14 @@ export function buildTex(MEASURES, PIECE, opts = {}) {
   const ms = MEASURES.filter((m) => m.n >= o.from && m.n <= o.to);
   const head = [
     `\\title "${PIECE.title}"`, `\\subtitle "${PIECE.subtitle}"`, `\\artist "Francisco Tárrega"`,
-    `\\tempo ${o.tempo}`, `\\track "Guitar"`, `\\staff {score tabs}`, `\\instrument acousticguitarnylon`,
-    `\\tuning (E4 B3 G3 D3 A2 E2)`, ""
+    `\\tempo ${o.tempo}`, isLele() ? `\\track "Guitarlele"` : `\\track "Guitar"`, `\\staff {score tabs}`, `\\instrument acousticguitarnylon`,
+    isLele() ? `\\tuning (A4 E4 C4 G3 D3 A2)` : `\\tuning (E4 B3 G3 D3 A2 E2)`, ""
   ].join("\n");
   const bars = (voice) => ms.map((M, i) => {
     const meta = [];
     if (voice === 1) {
       if (i === 0) meta.push("\\ts (3 4)");
-      if (i === 0 || M.key !== ms[i - 1].key) meta.push("\\ks " + (M.key === "E" ? "E" : "eminor"));
+      if (i === 0 || M.key !== ms[i - 1].key) meta.push("\\ks " + lagKeyName(M.key));
       if (o.repeats && (M.n === 1 || M.n === 9)) meta.push("\\ro");
       if (o.repeats && (M.n === 8 || M.n === 16)) meta.push("\\rc 2");
       // Fine / D.C. shown as text; the app performs the Da Capo itself (alphaTab would jump before taking the B repeat)
