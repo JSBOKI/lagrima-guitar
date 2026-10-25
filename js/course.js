@@ -4,6 +4,8 @@ import { lessonTex, validateAll } from "./coursetex.js";
 import { TUNINGS } from "./notes.js";
 import { RH_COLORS } from "./fretboard.js";
 import { handsHTML } from "./handguide.js";
+import { CHORD_LIB } from "./chordlib.js";
+import { ebytMediaHTML } from "./ebytmedia.js";
 
 const KEY = "guitar.course.v1";
 const $ = (id) => document.getElementById(id);
@@ -99,6 +101,7 @@ function fillLesson() {
   $("brandTitle").textContent = brand[0]; $("brandSub").textContent = brand[1];
   try { $("courseHands").innerHTML = handsHTML(lesson); } catch (err) { console.error(err); $("courseHands").innerHTML = ""; }
   $("courseFingers").textContent = lesson.fingers || "";
+  try { $("courseMedia").innerHTML = ebytMediaHTML(lesson, CHORD_LIB); } catch (err) { console.error(err); $("courseMedia").innerHTML = ""; }
   $("courseCredit").textContent = lesson.credit || "";
   $("courseTips").hidden = !lesson.tips;
   $("courseTips").innerHTML = lesson.tips ? "<b>Common mistakes</b><ul>" + lesson.tips.map((t) => `<li>${esc(t)}</li>`).join("") + "</ul>" : "";

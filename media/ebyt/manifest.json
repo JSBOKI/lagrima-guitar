@@ -1,0 +1,1039 @@
+[
+ {
+  "file": "g-Abadd9.mp4",
+  "poster": "g-Abadd9.jpg",
+  "kind": "left",
+  "mode": "guitar",
+  "chord": "Abadd9",
+  "short": "A♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 4
+   },
+   {
+    "finger": 2,
+    "string": 3,
+    "fret": 5
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 6
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 8
+   }
+  ],
+  "frets": [
+   4,
+   6,
+   8,
+   5,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "g-Fmadd9.mp4",
+  "poster": "g-Fmadd9.jpg",
+  "kind": "left",
+  "mode": "guitar",
+  "chord": "Fmadd9",
+  "short": "Fm(add9)",
+  "seconds": 23.0,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 1
+   },
+   {
+    "finger": 1,
+    "string": 3,
+    "fret": 1
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 3
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 5
+   }
+  ],
+  "frets": [
+   1,
+   3,
+   5,
+   1,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "g-Dbadd9.mp4",
+  "poster": "g-Dbadd9.jpg",
+  "kind": "left",
+  "mode": "guitar",
+  "chord": "Dbadd9",
+  "short": "D♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 4
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 6
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 6
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 8
+   }
+  ],
+  "frets": [
+   "x",
+   4,
+   6,
+   8,
+   6,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "g-Ebadd9.mp4",
+  "poster": "g-Ebadd9.jpg",
+  "kind": "left",
+  "mode": "guitar",
+  "chord": "Ebadd9",
+  "short": "E♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 6
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 8
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 8
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 10
+   }
+  ],
+  "frets": [
+   "x",
+   6,
+   8,
+   10,
+   8,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "g-Gbadd9.mp4",
+  "poster": "g-Gbadd9.jpg",
+  "kind": "left",
+  "mode": "guitar",
+  "chord": "Gbadd9",
+  "short": "G♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 2
+   },
+   {
+    "finger": 2,
+    "string": 3,
+    "fret": 3
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 4
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 6
+   }
+  ],
+  "frets": [
+   2,
+   4,
+   6,
+   3,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "g-Fbadd9.mp4",
+  "poster": "g-Fbadd9.jpg",
+  "kind": "left",
+  "mode": "guitar",
+  "chord": "Fbadd9",
+  "short": "F♭add9",
+  "seconds": 23.0,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 3,
+    "fret": 1
+   },
+   {
+    "finger": 2,
+    "string": 5,
+    "fret": 2
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 4
+   }
+  ],
+  "frets": [
+   0,
+   2,
+   4,
+   1,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   0,
+   2,
+   4,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "g-picking.mp4",
+  "poster": "g-picking.jpg",
+  "kind": "right",
+  "mode": "guitar",
+  "chord": "Abadd9",
+  "short": "A♭add9",
+  "seconds": 21.5,
+  "riff": [
+   {
+    "rh": "p",
+    "s": 6,
+    "f": 4,
+    "lf": 1,
+    "deg": "R"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "i",
+    "s": 4,
+    "f": 8,
+    "lf": 4,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "m",
+    "s": 3,
+    "f": 5,
+    "lf": 2,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "i",
+    "s": 4,
+    "f": 8,
+    "lf": 4,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   }
+  ]
+ },
+ {
+  "file": "lk-Abadd9.mp4",
+  "poster": "lk-Abadd9.jpg",
+  "kind": "left",
+  "mode": "key",
+  "chord": "glk_Abadd9",
+  "short": "A♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 6
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 8
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 8
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 10
+   }
+  ],
+  "frets": [
+   "x",
+   6,
+   8,
+   10,
+   8,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "lk-Fmadd9.mp4",
+  "poster": "lk-Fmadd9.jpg",
+  "kind": "left",
+  "mode": "key",
+  "chord": "glk_Fmadd9",
+  "short": "Fm(add9)",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 3
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 4
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 5
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 7
+   }
+  ],
+  "frets": [
+   "x",
+   3,
+   5,
+   7,
+   4,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "lk-Dbadd9.mp4",
+  "poster": "lk-Dbadd9.jpg",
+  "kind": "left",
+  "mode": "key",
+  "chord": "glk_Dbadd9",
+  "short": "D♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 4
+   },
+   {
+    "finger": 2,
+    "string": 3,
+    "fret": 5
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 6
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 8
+   }
+  ],
+  "frets": [
+   4,
+   6,
+   8,
+   5,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "lk-Ebadd9.mp4",
+  "poster": "lk-Ebadd9.jpg",
+  "kind": "left",
+  "mode": "key",
+  "chord": "glk_Ebadd9",
+  "short": "E♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 6
+   },
+   {
+    "finger": 2,
+    "string": 3,
+    "fret": 7
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 8
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 10
+   }
+  ],
+  "frets": [
+   6,
+   8,
+   10,
+   7,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "lk-Gbadd9.mp4",
+  "poster": "lk-Gbadd9.jpg",
+  "kind": "left",
+  "mode": "key",
+  "chord": "glk_Gbadd9",
+  "short": "G♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 4
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 6
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 6
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 8
+   }
+  ],
+  "frets": [
+   "x",
+   4,
+   6,
+   8,
+   6,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "lk-Fbadd9.mp4",
+  "poster": "lk-Fbadd9.jpg",
+  "kind": "left",
+  "mode": "key",
+  "chord": "glk_Fbadd9",
+  "short": "F♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 2
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 4
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 4
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 6
+   }
+  ],
+  "frets": [
+   "x",
+   2,
+   4,
+   6,
+   4,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "lk-picking.mp4",
+  "poster": "lk-picking.jpg",
+  "kind": "right",
+  "mode": "key",
+  "chord": "glk_Abadd9",
+  "short": "A♭add9",
+  "seconds": 21.5,
+  "riff": [
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 1,
+    "deg": "R"
+   },
+   {
+    "rh": "p",
+    "s": 4,
+    "f": 8,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "i",
+    "s": 3,
+    "f": 10,
+    "lf": 4,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 4,
+    "f": 8,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "m",
+    "s": 2,
+    "f": 8,
+    "lf": 2,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 4,
+    "f": 8,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "i",
+    "s": 3,
+    "f": 10,
+    "lf": 4,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 4,
+    "f": 8,
+    "lf": 3,
+    "deg": "5"
+   }
+  ]
+ },
+ {
+  "file": "ls-Abadd9.mp4",
+  "poster": "ls-Abadd9.jpg",
+  "kind": "left",
+  "mode": "shapes",
+  "chord": "gls_Abadd9",
+  "short": "D♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 4
+   },
+   {
+    "finger": 2,
+    "string": 3,
+    "fret": 5
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 6
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 8
+   }
+  ],
+  "frets": [
+   4,
+   6,
+   8,
+   5,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "ls-Fmadd9.mp4",
+  "poster": "ls-Fmadd9.jpg",
+  "kind": "left",
+  "mode": "shapes",
+  "chord": "gls_Fmadd9",
+  "short": "B♭m(add9)",
+  "seconds": 23.0,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 1
+   },
+   {
+    "finger": 1,
+    "string": 3,
+    "fret": 1
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 3
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 5
+   }
+  ],
+  "frets": [
+   1,
+   3,
+   5,
+   1,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "ls-Dbadd9.mp4",
+  "poster": "ls-Dbadd9.jpg",
+  "kind": "left",
+  "mode": "shapes",
+  "chord": "gls_Dbadd9",
+  "short": "G♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 4
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 6
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 6
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 8
+   }
+  ],
+  "frets": [
+   "x",
+   4,
+   6,
+   8,
+   6,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "ls-Ebadd9.mp4",
+  "poster": "ls-Ebadd9.jpg",
+  "kind": "left",
+  "mode": "shapes",
+  "chord": "gls_Ebadd9",
+  "short": "A♭add9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 5,
+    "fret": 6
+   },
+   {
+    "finger": 2,
+    "string": 2,
+    "fret": 8
+   },
+   {
+    "finger": 3,
+    "string": 4,
+    "fret": 8
+   },
+   {
+    "finger": 4,
+    "string": 3,
+    "fret": 10
+   }
+  ],
+  "frets": [
+   "x",
+   6,
+   8,
+   10,
+   8,
+   "x"
+  ],
+  "fingers": [
+   0,
+   1,
+   3,
+   4,
+   2,
+   0
+  ]
+ },
+ {
+  "file": "ls-Gbadd9.mp4",
+  "poster": "ls-Gbadd9.jpg",
+  "kind": "left",
+  "mode": "shapes",
+  "chord": "gls_Gbadd9",
+  "short": "Badd9",
+  "seconds": 26.2,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 6,
+    "fret": 2
+   },
+   {
+    "finger": 2,
+    "string": 3,
+    "fret": 3
+   },
+   {
+    "finger": 3,
+    "string": 5,
+    "fret": 4
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 6
+   }
+  ],
+  "frets": [
+   2,
+   4,
+   6,
+   3,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   1,
+   3,
+   4,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "ls-Fbadd9.mp4",
+  "poster": "ls-Fbadd9.jpg",
+  "kind": "left",
+  "mode": "shapes",
+  "chord": "gls_Fbadd9",
+  "short": "Aadd9",
+  "seconds": 23.0,
+  "dots": [
+   {
+    "finger": 1,
+    "string": 3,
+    "fret": 1
+   },
+   {
+    "finger": 2,
+    "string": 5,
+    "fret": 2
+   },
+   {
+    "finger": 4,
+    "string": 4,
+    "fret": 4
+   }
+  ],
+  "frets": [
+   0,
+   2,
+   4,
+   1,
+   "x",
+   "x"
+  ],
+  "fingers": [
+   0,
+   2,
+   4,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "file": "ls-picking.mp4",
+  "poster": "ls-picking.jpg",
+  "kind": "right",
+  "mode": "shapes",
+  "chord": "gls_Abadd9",
+  "short": "D♭add9",
+  "seconds": 21.5,
+  "riff": [
+   {
+    "rh": "p",
+    "s": 6,
+    "f": 4,
+    "lf": 1,
+    "deg": "R"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "i",
+    "s": 4,
+    "f": 8,
+    "lf": 4,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "m",
+    "s": 3,
+    "f": 5,
+    "lf": 2,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   },
+   {
+    "rh": "i",
+    "s": 4,
+    "f": 8,
+    "lf": 4,
+    "deg": "c"
+   },
+   {
+    "rh": "p",
+    "s": 5,
+    "f": 6,
+    "lf": 3,
+    "deg": "5"
+   }
+  ]
+ }
+]

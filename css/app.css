@@ -182,3 +182,11 @@ body.show-course-dock{--dockh:118px}
 .inst-note{font-size:1.02rem;margin:8px 0}
 .inst-note.warn{color:#8a4b00;font-weight:600}
 .btn.big{font-size:1.15rem;min-height:52px;display:inline-flex;align-items:center}
+
+/* Unit 10 demo videos */
+#courseMedia:empty{display:none}
+.ebv-head{margin:12px 0 6px;font-size:1.05rem}
+.ebv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:12px}
+.ebv{margin:0;background:#0e1016;border-radius:14px;overflow:hidden;border:2px solid #2a2f3d}
+.ebv video{display:block;width:100%;aspect-ratio:16/9;background:#0e1016}
+.ebv figcaption{padding:10px 12px;font-size:1.05rem;font-weight:600;color:#fff;line-height:1.3}
